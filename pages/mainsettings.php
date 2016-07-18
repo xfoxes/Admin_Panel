@@ -10,7 +10,7 @@ $baslik ="";
 
 function kontrol1($tur)
 {
-    if($tur == "image/jpeg" || $tur == "image/pjpeg" || $tur == "image/png" || $tur == "image/gif" )
+    if($tur == "image/jpeg" || $tur == "image/jpg" || $tur == "image/png" || $tur == "image/gif" )
     {
         return true;        
     }
@@ -22,7 +22,7 @@ function kontrol1($tur)
 //------------------------------------------------------
 function kontrol2($boyut)
 {
-    if($boyut <=2097152)
+    if($boyut <=999999999999)
     {
         return true;
         }
@@ -31,8 +31,6 @@ function kontrol2($boyut)
         return false;
     }
 }
-
-
 
 if(isset($_POST["image-update"]))
 {
@@ -73,6 +71,121 @@ if(isset($_POST["image-update"]))
   
     
 }
+
+//POST İŞLEMLERİ
+
+$titletxt ="";
+$desptxt ="";
+$pptxt ="";
+$twittertxt="";
+$facebooktxt="";
+$instatxt="";
+
+if(isset($_POST["title-update"]))
+{
+	if($_POST["title"]!=null)
+	{
+		$titletxt = $_POST["title"];
+		
+		 $sql = "UPDATE mainpage SET Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($titletxt));
+						  
+	}
+	
+}
+if(isset($_POST["desp-update"]))
+{
+	if($_POST["editor"]!=null)
+	{
+		$desptxt = $_POST["editor"];
+		
+		 $sql = "UPDATE mainpage SET Description=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($desptxt));
+						  
+	}
+	
+}
+if(isset($_POST["image-update"]))
+{
+	
+		$pptxt = $_FILES['dosya']['name'];
+		
+		 $sql = "UPDATE mainpage SET PP=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($pptxt));
+						  
+	
+	
+}
+
+if(isset($_POST["twitter-update"]))
+{
+	
+		$twittertxt = $_POST["twitter"];
+		
+		 $sql = "UPDATE mainpage SET Stwitter=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($twittertxt));
+						  
+	
+	
+}
+if(isset($_POST["facebook-update"]))
+{
+	
+		$facebooktxt = $_POST["facebook"];
+		
+		 $sql = "UPDATE mainpage SET Sfacebook=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($facebooktxt));
+						  
+	
+	
+}
+if(isset($_POST["insta-update"]))
+{
+	
+		$instatxt = $_POST["insta"];
+		
+		 $sql = "UPDATE mainpage SET Sinstagram=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($instatxt));
+						  
+	
+	
+}
+
+
+
+//_________________________________________
+
+//Dosya Güncelleme İşlemleri
+
+	
+                        // başlık içerik çektik------------------------------------------------
+                          $query = $db->query("select * from mainpage", PDO::FETCH_ASSOC);
+                          if($query->rowCount()){
+                            foreach ($query as $row) {
+                                $title = $row["Title"];
+                                $description = $row["Description"];
+								$resimpp = $row["PP"];
+								
+                            }
+                          }
+                          // başlık içerik çekme bitti-----------------------------------------
+
+
+
+                          //başlık içerik güncelleme-------------------------------------------
+                          
+                          
+                         
+                           
+                          //başlık içerik güncelle bitti---------------------------------------
+                        
+
 ?>
 
 
@@ -139,29 +252,7 @@ if(isset($_POST["image-update"]))
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
+                        
                         <li class="divider"></li>
                         <li>
                             <a href="#">
@@ -185,144 +276,6 @@ if(isset($_POST["image-update"]))
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -383,36 +336,12 @@ if(isset($_POST["image-update"]))
                         <h1 class="page-header">Main Page Settings</h1>
                         <div> <?php echo $uyari; ?></div>
                     </div>
-                    <form method="POST" action="#" enctype="multipart/form-data">
+                    <form method="POST" action="#">
 
                     <div class="col-lg-12">
                         <h2 class="page-header">Title Set</h2>
                         <div class="input-group custom-search-form">
-                        <?php
-                        // başlık içerik çektik------------------------------------------------
-                          $query = $db->query("select * from mainpage", PDO::FETCH_ASSOC);
-                          if($query->rowCount()){
-                            foreach ($query as $row) {
-                                $title = $row["Title"];
-                                $description = $row["Description"];
-
-                            }
-                          }
-                          // başlık içerik çekme bitti-----------------------------------------
-
-
-
-                          //başlık içerik güncelleme-------------------------------------------
-                          if(isset($_POST["title-update"]))
-                          {
-                          $title = $_POST["title"];
-                          
-                          $sql = "UPDATE mainpage SET Title=?  WHERE id=1";
-                          $query = $db->prepare($sql);
-                          $sonuc = $query->execute(array($title));
-                            }
-                          //başlık içerik güncelle bitti---------------------------------------
-                        ?>
+                        
                                 <input type="text" name="title" class="form-control" placeholder="<?php echo $title; ?>">
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit" name="title-update" id="title-update">
@@ -428,42 +357,53 @@ if(isset($_POST["image-update"]))
                         <button class="btn btn-default" type="sumbit" name="desp-update" id="desp-update"><b>Update</b></button> <br> <br>
                         </form>
 						 <h2 class="page-header">Profile-Picture Set</h2>
+						 <img src="../image/upload/<?php echo $resimpp?>" width=100px; height=100px; />
+						<form method="POST" action="#" enctype="multipart/form-data">
                         <input name="dosya" type="file"> <br>
-                        <input type="submit" class="btn btn-primary" name="image-update" id="gonder"><br><br>
+                        <input type="submit" class="btn btn-primary" name="image-update" id="image-update"><br><br>
+						</form>
 						 <h2 class="page-header">Button Add</h2>
 						 <h3 class="page-header">Button title</h3>
+						 <form method="POST" action="#">
 						 <input type="text" class="form-control" placeholder="Title">
 						 <h3 class="page-header">Button Link</h3>
 						 <input type="text" class="form-control" placeholder="Link"><br><br>
-						 <input type="submit" class="btn btn-primary" name="button-add" id="gonder">
+						 <input type="submit" class="btn btn-primary" name="button-add" id="button-add">
+						 </form>
 						 <h2 class="page-header">Social Link Set</h2>
 						 <h2 class="page-header">Twitter</h2>
+						 <form method="POST" action="#">
 						 <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Twitter_Link">
+                                <input name="twitter" type="text" class="form-control" placeholder="Twitter_Link">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="twitter-update">
+                                <button class="btn btn-default" type="sumbit" name="twitter-update" id="twitter-update">
                                     <b>Update</b>
                                 </button>
                             </span>
                             </div>
+							</form>
 						 <h2 class="page-header">Facebook</h2>
+						 <form method="POST" action="#">
 						 <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Facebook_Link">
+                                <input name="facebook" type="text" class="form-control" placeholder="Facebook_Link">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="facebook-update">
+                                <button class="btn btn-default" type="sumbit" name="facebook-update" id="facebook-update">
                                     <b>Update</b>
                                 </button>
                             </span>
                             </div>
+							</form>
 						 <h2 class="page-header">Instagram</h2>
+						 <form method="POST" action="#">
 						 <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Instagram_Link">
+                                <input name="insta" type="text" class="form-control" placeholder="Instagram_Link">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="insta-update">
+                                <button class="btn btn-default" type="sumbit" name="insta-update" id="insta-update">
                                     <b>Update</b>
                                 </button>
                             </span>
                             </div>
+							</form>
 							<br><br>
 						 
 						 
