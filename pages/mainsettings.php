@@ -1,4 +1,8 @@
 <?php
+
+//db bağlantı
+include "connect.php";
+// db baglantı son
 //resim yükleme
 
 $uyari = "";
@@ -379,24 +383,52 @@ if(isset($_POST["image-update"]))
                         <h1 class="page-header">Main Page Settings</h1>
                         <div> <?php echo $uyari; ?></div>
                     </div>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" action="#" enctype="multipart/form-data">
 
                     <div class="col-lg-12">
                         <h2 class="page-header">Title Set</h2>
                         <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Title">
+                        <?php
+                        // başlık içerik çektik------------------------------------------------
+                          $query = $db->query("select * from mainpage", PDO::FETCH_ASSOC);
+                          if($query->rowCount()){
+                            foreach ($query as $row) {
+                                $title = $row["Title"];
+                                $description = $row["Description"];
+
+                            }
+                          }
+                          // başlık içerik çekme bitti-----------------------------------------
+
+
+
+                          //başlık içerik güncelleme-------------------------------------------
+                          if(isset($_POST["title-update"]))
+                          {
+                          $title = $_POST["title"];
+                          
+                          $sql = "UPDATE mainpage SET Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($title));
+                            }
+                          //başlık içerik güncelle bitti---------------------------------------
+                        ?>
+                                <input type="text" name="title" class="form-control" placeholder="<?php echo $title; ?>">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="title-update">
+                                <button class="btn btn-default" type="submit" name="title-update" id="title-update">
                                     <b>Update</b>
                                 </button>
                             </span>
                             </div>
+                            </form>
                          <br>
 						 <h2 class="page-header">Description Set</h2>
-                        <textarea name="editor" class="ckeditor"></textarea> <br>
-                        <button class="btn btn-default" type="sumbit" name="desp-update"><b>Update</b></button> <br> <br>
+                         <form method="POST" action="#" enctype="multipart/form-data">
+                        <textarea name="editor" class="ckeditor"><?php echo $description; ?></textarea> <br>
+                        <button class="btn btn-default" type="sumbit" name="desp-update" id="desp-update"><b>Update</b></button> <br> <br>
+                        </form>
 						 <h2 class="page-header">Profile-Picture Set</h2>
-                        <input name="dosya" type="file" required="required"> <br>
+                        <input name="dosya" type="file"> <br>
                         <input type="submit" class="btn btn-primary" name="image-update" id="gonder"><br><br>
 						 <h2 class="page-header">Button Add</h2>
 						 <h3 class="page-header">Button title</h3>
@@ -437,7 +469,7 @@ if(isset($_POST["image-update"]))
 						 
                        
                     </div>
-                    </form>
+                    
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
