@@ -382,7 +382,7 @@ if(isset($_POST["image-update"]))
                     <form method="POST" enctype="multipart/form-data">
 
                     <div class="col-lg-12">
-                        <h2 class="page-header">Write</h2>
+                        <h2 class="page-header">Title Set</h2>
                         <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Title">
                                 <span class="input-group-btn">
@@ -392,10 +392,49 @@ if(isset($_POST["image-update"]))
                             </span>
                             </div>
                          <br>
+						 <h2 class="page-header">Description Set</h2>
                         <textarea name="editor" class="ckeditor"></textarea> <br>
                         <button class="btn btn-default" type="sumbit" name="desp-update"><b>Update</b></button> <br> <br>
+						 <h2 class="page-header">Profile-Picture Set</h2>
                         <input name="dosya" type="file" required="required"> <br>
                         <input type="submit" class="btn btn-primary" name="image-update" id="gonder"><br><br>
+						 <h2 class="page-header">Button Add</h2>
+						 <h3 class="page-header">Button title</h3>
+						 <input type="text" class="form-control" placeholder="Title">
+						 <h3 class="page-header">Button Link</h3>
+						 <input type="text" class="form-control" placeholder="Link"><br><br>
+						 <input type="submit" class="btn btn-primary" name="button-add" id="gonder">
+						 <h2 class="page-header">Social Link Set</h2>
+						 <h2 class="page-header">Twitter</h2>
+						 <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Twitter_Link">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="sumbit" name="twitter-update">
+                                    <b>Update</b>
+                                </button>
+                            </span>
+                            </div>
+						 <h2 class="page-header">Facebook</h2>
+						 <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Facebook_Link">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="sumbit" name="facebook-update">
+                                    <b>Update</b>
+                                </button>
+                            </span>
+                            </div>
+						 <h2 class="page-header">Instagram</h2>
+						 <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Instagram_Link">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="sumbit" name="insta-update">
+                                    <b>Update</b>
+                                </button>
+                            </span>
+                            </div>
+							<br><br>
+						 
+						 
                        
                     </div>
                     </form>
