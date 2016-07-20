@@ -22,6 +22,15 @@ include "connect.php";
  ?>
 <html>
 	<head>
+	<style>
+body{
+		background-image: url("images/overlay.png"), -moz-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("Admin/image/upload/<?php echo $resimbgp; ?>");
+		background-image: url("images/overlay.png"), -webkit-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("Admin/image/upload/<?php echo $resimbgp; ?>");
+		background-image: url("images/overlay.png"), -ms-linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("Admin/image/upload/<?php echo $resimbgp; ?>");
+		background-image: url("images/overlay.png"), linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35)), url("Admin/image/upload/<?php echo $resimbgp; ?>");
+	}
+
+	</style>
 		<title>Onat Aktaş</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,20 +53,37 @@ include "connect.php";
 				<!-- Main -->
 					<section id="main">
 						<header>
-							<span class="avatar"><img src="images/avatar.jpg" alt="Onat Aktaş Profil Fotoğrafı" title="Onat Aktaş" /></span>
-							<h1>Onat Aktaş</h1>
-							<p>Microsoft Student Partner(MSP) / Software Engineer </p>
+							<span class="avatar"><img width="125" height="auto" src="Admin/image/upload/<?php echo $resimpp; ?>" alt="Onat Aktaş Profil Fotoğrafı" title="Onat Aktaş" /></span>
+							<h1><?php echo $title; ?></h1>
+							<?php echo $description; ?>
 						</header>
 						
 						<footer>
-                        								<a href="http://onataktas.com/me" class="button">Site</a>&nbsp;&nbsp;&nbsp;<a href="#" class="button">Blog</a>
-                                                        
-                                                        <br/><br/>
+
+
+
+                                <?php 
+										
+										$query = $db->query("select * from mainpagebuttons", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      
+                                      $ButtonName = $row["Title"];
+								      $ButtonLink = $row["Link"];
+									  ?>
+									  <a href="<?php echo $ButtonLink; ?>" class="button"><?php echo $ButtonName; ?></a>
+							          <?php	
+                                      }	 
+                                      }
+						              ?>
+
+                
+                                      <br/><br/>
 
 							<ul class="icons">
 								<li><a href="<?php echo $twitterlink ?>" class="fa-twitter">Twitter</a></li>
-								<li><a href="https://instagram.com/bourn328" class="fa-instagram">Instagram</a></li>
-								<li><a href="https://www.facebook.com/onat.aktas.52" class="fa-facebook">Facebook</a></li>
+								<li><a href="<?php echo $instagramlink ?>" class="fa-instagram">Instagram</a></li>
+								<li><a href="<?php echo $facebooklink ?>" class="fa-facebook">Facebook</a></li>
 							</ul>
 						</footer>
 					</section>
