@@ -8,6 +8,8 @@ include "connect.php";
 $uyari = "";
 $baslik ="";
 
+
+
 function kontrol1($tur)
 {
     if($tur == "image/jpeg" || $tur == "image/jpg" || $tur == "image/png" || $tur == "image/gif" )
@@ -47,6 +49,45 @@ if(isset($_POST["image-update"]))
          copy($_FILES['dosya']['tmp_name'] , "../image/upload/" . $_FILES['dosya']['name']); 
          
          $resim = "../image/upload/" . $_FILES['dosya']['name'];
+         
+    
+        $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
+              
+          
+          }
+          else
+          {
+         $uyari .= "<div class='alert alert-danger'>Resim boyutu 2Mb'dan büyük olamaz!<br></div>"; 
+              }
+      
+      
+      
+  }
+  else
+  {
+     $uyari .= "<div class='alert alert-danger'>Resim dosyası seçilmeli!<br></div>"; 
+  }
+  
+  
+  
+  
+    
+}
+if(isset($_POST["bgimage-update"]))
+{
+  
+  
+
+  
+  if(kontrol1($_FILES['dosyabg']['type']))
+  {
+      if(kontrol2($_FILES['dosyabg']['size']))
+      {
+         // Kontoller tamam
+         
+         copy($_FILES['dosyabg']['tmp_name'] , "../image/upload/" . $_FILES['dosyabg']['name']); 
+         
+         $resim = "../image/upload/" . $_FILES['dosyabg']['name'];
          
     
         $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
@@ -119,6 +160,18 @@ if(isset($_POST["image-update"]))
 	
 	
 }
+if(isset($_POST["bgimage-update"]))
+{
+	
+		$bgptxt = $_FILES['dosyabg']['name'];
+		
+		 $sql = "UPDATE mainpage SET BGP=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($bgptxt));
+						  
+	
+	
+}
 
 if(isset($_POST["twitter-update"]))
 {
@@ -157,6 +210,20 @@ if(isset($_POST["insta-update"]))
 	
 }
 
+if(isset($_POST["button-add"]))
+{
+	$btntitleadd = $_POST["btnaddtitle"];
+	$btnlinkadd = $_POST["btnaddlink"];
+	
+	
+$sql = "INSERT INTO mainpagebuttons (Title,Link) VALUES (:title,:link)";
+$query = $db->prepare($sql);
+$sonuc = $query->execute(array(':title'=>$btntitleadd,':link'=>$btnlinkadd));
+	
+	
+	
+}
+
 
 
 //_________________________________________
@@ -171,6 +238,7 @@ if(isset($_POST["insta-update"]))
                                 $title = $row["Title"];
                                 $description = $row["Description"];
 								$resimpp = $row["PP"];
+								$resimbgp = $row["BGP"];
 								
                             }
                           }
@@ -184,7 +252,44 @@ if(isset($_POST["insta-update"]))
                          
                            
                           //başlık içerik güncelle bitti---------------------------------------
-                        
+           
+
+//Dosya Silme ve Güncelleme İşlemleri
+
+if(isset($_GET['sd']))
+{
+	$silid = $_GET['sd'];
+	$delete = $db->exec("DELETE FROM mainpagebuttons WHERE id = ".$silid);
+ 
+    
+}
+
+if(isset($_POST["btn_update"]))
+{
+	$btntitle = $_POST["btn_title"];
+	$btnlink = $_POST["btn_link"];
+	$upid = $_GET['ud'];
+	
+	$sql = "UPDATE mainpagebuttons SET Title=?,Link=?  WHERE id=".$upid;
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($btntitle,$btnlink));
+	
+}
+
+if(isset($_GET['ud']))
+{
+	$upid = $_GET['ud'];
+	
+	$query = $db->query("select * from mainpagebuttons WHERE id = ".$upid, PDO::FETCH_ASSOC);
+                          if($query->rowCount()){
+                            foreach ($query as $row) {
+                                $btntitle = $row["Title"];
+                                $btnlink = $row["Link"];						
+                            }
+	
+						  }
+}
+		   
 
 ?>
 
@@ -319,7 +424,6 @@ if(isset($_POST["insta-update"]))
                             
                         </li>
                        
-                           
                         </li>
                     </ul>
                 </div>
@@ -362,12 +466,18 @@ if(isset($_POST["insta-update"]))
                         <input name="dosya" type="file"> <br>
                         <input type="submit" class="btn btn-primary" name="image-update" id="image-update"><br><br>
 						</form>
+						<h2 class="page-header">BackGround-Picture Set</h2>
+						 <img src="../image/upload/<?php echo $resimbgp?>" width=100px; height=100px; />
+						<form method="POST" action="#" enctype="multipart/form-data">
+                        <input name="dosyabg" type="file"> <br>
+                        <input type="submit" class="btn btn-primary" name="bgimage-update" id="bgimage-update"><br><br>
+						</form>
 						 <h2 class="page-header">Button Add</h2>
 						 <h3 class="page-header">Button title</h3>
 						 <form method="POST" action="#">
-						 <input type="text" class="form-control" placeholder="Title">
+						 <input name="btnaddtitle" type="text" class="form-control" placeholder="Title">
 						 <h3 class="page-header">Button Link</h3>
-						 <input type="text" class="form-control" placeholder="Link"><br><br>
+						 <input name="btnaddlink" type="text" class="form-control" placeholder="Link"><br><br>
 						 <input type="submit" class="btn btn-primary" name="button-add" id="button-add">
 						 </form>
 						 <h2 class="page-header">Social Link Set</h2>
@@ -405,6 +515,72 @@ if(isset($_POST["insta-update"]))
                             </div>
 							</form>
 							<br><br>
+							<div class="panel panel-default">
+                        <div class="panel-heading">
+                            Button Update
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Button Title</th>
+                                            <th>Button Link</th>
+											<th>Button Sil</th>
+											<th>Button Değiştir</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+										<?php 
+										
+										$query = $db->query("select * from mainpagebuttons", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      $ButtonID = $row["id"];
+                                      $ButtonName = $row["Title"];
+								      $ButtonLink = $row["Link"];
+									  ?>
+									  <tr>
+									        <td><?php echo $ButtonID ?></td>
+                                            <td><?php echo $ButtonName ?></td>
+                                            <td><?php echo $ButtonLink ?></td>
+											<td><a href="?sd=<?php echo $ButtonID ?>" />Buton Delete</td>
+											<td><a href="?ud=<?php echo $ButtonID ?>" />Buton Update</td>
+											</tr>
+							<?php	
+                            }
+							
+							                
+                                            
+											 
+                          }
+						  ?>
+						  <tr>
+						  <td><?php echo @$upid ?></td>
+						  <form method="POST" action="#">
+						  <td><input name="btn_title" type="text" class="form-control" value="<?php echo @$btntitle ?>"></td>
+						  <td><input name="btn_link" type="text" class="form-control" value="<?php echo @$btnlink ?>"></td>
+						  <td><input type="submit" class="btn btn-primary" name="btn_update" value="Update" id="btn_update"></td>
+						  </form>
+						  </tr>
+						  
+						  
+                                            
+											
+											
+											
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
 						 
 						 
                        
