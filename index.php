@@ -2,7 +2,7 @@
 
 <?php
 
-include "connect.php";
+include "Admin/pages/connect.php";
 
                    $query = $db->query("select * from mainpage", PDO::FETCH_ASSOC);
                           if($query->rowCount()){
