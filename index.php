@@ -1,8 +1,32 @@
 <!DOCTYPE HTML>
 
 <?php
-
 include "Admin/pages/connect.php";
+$ensonsayi = 0;
+
+ $query = $db->query("select * from ziyaretciler", PDO::FETCH_ASSOC);
+                          if($query->rowCount()){
+                            foreach ($query as $row) {
+                                $ensonsayi = $row["ToplamZiyaret"];
+	
+                            }
+                          }
+						  
+
+session_start();
+
+if(!isset($_SESSİON['hasVisited']))
+{
+	$_SESSİON['hasVisited'] = "yes";
+	$ensonsayi += 1;
+	
+}
+ $sql = "UPDATE ziyaretciler SET ToplamZiyaret=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($ensonsayi));
+
+
+
 
                    $query = $db->query("select * from mainpage", PDO::FETCH_ASSOC);
                           if($query->rowCount()){
