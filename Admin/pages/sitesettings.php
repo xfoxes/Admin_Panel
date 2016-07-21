@@ -1,7 +1,15 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+
+    <script src="../plugins/ckeditor/ckeditor.js"></script>
+
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -108,7 +116,7 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
+                                    <button class="btn btn-primary" type="button">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
@@ -139,52 +147,396 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Site Page Settings</h1>
+                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Site Page Settings</h1>
 						
-						<h2 class="page-header">Logo Title</h2>
-						<h2 class="page-header">Menu Add</h2>
-						<h2 class="page-header">Menu Update & Delete</h2>
-						<h2 class="page-header">Slider Add</h2>
-						<h2 class="page-header">Slider Update & Delete</h2>
-						<h2 class="page-header">About Section 1</h2>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Logo Title</h2>
+                                 <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Menu Add</h2>
+
+                        <h3>Menu Title</h3>
+                        <input type="text" name="title" class="form-control" placeholder="">
+                        <h3>Menu Link</h3>
+                        <input type="text" name="title" class="form-control" placeholder=""> <br>
+                        <input type="submit" class="btn btn-primary" name="">
+
+
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Menu Update & Delete</h2>
+                            <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Menu Title</th>
+                                            <th>Menu Link</th>
+                                            <th>Menu Delete</th>
+                                            <th>Menu Update</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Slider Add</h2>
+                                <h3>Slider Title</h3>
+                                <input type="text" name="title" class="form-control" placeholder="">
+                                <h3>Slider Description</h3>
+                                <input type="text" name="title" class="form-control" placeholder=""> 
+                                <h3>Slider İmage</h3>
+                                <input type="file" name=""><br>
+                                <input type="submit" class="btn btn-primary" name="">
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Slider Update & Delete</h2>
+                                <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Slider Title</th>
+                                            <th>Slider Description</th>
+                                            <th>Slider İmage</th>
+                                            <th>Slider Delete</th>
+                                            <th>Slider Update</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About Section 1</h2>
+
 						<h3 class="page-header">Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">article 1</h3>
+                        
+                                 <textarea class="ckeditor" name="editor"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="article1-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                  
+                                 
 						<h3 class="page-header">article 2</h3>
-						<h2 class="page-header">About Section 2</h2>
+                        
+                                 <textarea class="ckeditor" name="editor"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="article2-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                  
+                                 
+                                 
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About Section 2</h2>
+
 						<h3 class="page-header">Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">article 1</h3>
+                        <textarea class="ckeditor" name="editor"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="article1-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
 						<h3 class="page-header">Profile image 2</h3>
+                                <input type="file" name=""><br>
+                                <input type="submit" class="btn btn-success" name="">
 						<h3 class="page-header">Button Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Button Link</h3>
-						<h2 class="page-header">Services </h2>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Services </h2>
+
 						<h3 class="page-header">Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">article</h3>
-						<h3 class="page-header">Section Services Add</h3>
+                                <textarea class="ckeditor" name="editor"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="article2-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Section Services Add</h2>
+                                
+                                <h3 class="page-header">Services İmage</h3>
+                                <input type="file" name="">
+                                <h3>Services Title</h3>
+                                <input type="text" name="title" class="form-control" placeholder="">
+                                <h3>Services Description</h3>
+                                <textarea class="ckeditor" name="editor"></textarea> <br>
+                                <button class="btn btn-primary" type="submit" name="article2-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+
+
 						<h3 class="page-header">Section Services Update & Delete</h3>
-						<h2 class="page-header">Projects</h2>
+                                <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Services Title</th>
+                                            <th>Services Description</th>
+                                            <th>Services İmage</th>
+                                            <th>Services Delete</th>
+                                            <th>Services Update</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Projects</h2>
+
 						<h3 class="page-header">Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">article</h3>
-						<h3 class="page-header">Project Add</h3>
+                        <textarea class="ckeditor" name="editor"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="article2-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Project Add</h2>
+                        <h3 class="page-header">Project-Title</h3>
+                            <input type="text" name="title" class="form-control" placeholder="">
+                        <h3 class="page-header">Project-Article</h3>
+                        <textarea class="ckeditor" name="editor"></textarea> <br>
+                        <h3 class="page-header">Project-İmage</h3>
+                        <input type="file" name="">
+                        <h3 class="page-header">Project-link</h3>
+                            <input type="text" name="title" class="form-control" placeholder=""> <br>
+                            <button class="btn btn-primary" type="submit" name="article2-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+
+
+                                
+
 						<h3 class="page-header">Project Update & Delete</h3>
-						<h2 class="page-header">About me</h2>
-						<h3 class="page-header">Title</h3>
-						<h3 class="page-header">About me image</h3>
+                                <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Project Title</th>
+                                            <th>Project Description</th>
+                                            <th>Project İmage</th>
+                                            <th>Project Link</th>
+                                            <th>Project Delete</th>
+                                            <th>Project Update</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About me</h2>
+						<h3 class="page-header">Main Title</h3>
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
+                        <h3 class="page-header">Title</h3>
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
+                                
+                        <h3 class="page-header">About me image</h3>
+                                <input type="file" name=""><br>
+                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+
 						<h3 class="page-header">Article</h3>
-						<h2 class="page-header">Social</h2>
+                                <textarea class="ckeditor" name="editor"></textarea><br>
+                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Social</h2>
+
 						<h3 class="page-header">Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Article</h3>
+                        <textarea class="ckeditor" name="editor"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
 						<h3 class="page-header">Facebook</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Twitter</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">İnstagram</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Youtube</h3>
-						<h2 class="page-header">Contact</h2>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Contact</h2>
 						<h3 class="page-header">Title</h3>
+                        <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Article</h3>
+                                <textarea class="ckeditor" name="editor"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
 						<h3 class="page-header">Adress Title</h3>
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Adress</h3>
+                                <textarea class="ckeditor" name="editor"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
 						<h3 class="page-header">Phone</h3>
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Mail</h3>
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						<h3 class="page-header">Main Mail</h3>
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <span class="input-group-btn">
+                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <b>Update</b>
+                                 </button>
+                                 </span>
+                                 </div>
 						
 						
 						
