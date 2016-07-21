@@ -1,5 +1,116 @@
+<?php 
+
+include "connect.php";
 
 
+$uyari = "";
+$baslik ="";
+
+
+if(isset($_POST["about2_pp_u"]))
+{
+
+         copy($_FILES['about2_pp']['tmp_name'] , "../image/upload/" . $_FILES['about2_pp']['name']); 
+         
+         $resim = "../image/upload/" . $_FILES['about2_pp']['name'];
+         
+    
+        $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
+              
+			  $sql = "UPDATE sitepage SET About2_PP=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_FILES["about2_pp"]["name"]));
+          
+}
+  
+
+//------POST İŞLEMLERİ --------------------
+if(isset($_POST["logo-title-update"]))
+{
+	$logotitletxt = $_POST["logo-title"];
+	$sql = "UPDATE sitepage SET Logo_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($logotitletxt));
+}
+if(isset($_POST["about_title_u"]))
+{
+	$about_title = $_POST["about_title"];
+	$sql = "UPDATE sitepage SET About_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($about_title));
+}
+if(isset($_POST["about_article1_u"]))
+{
+	$sql = "UPDATE sitepage SET About_Article1=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["about_article1"]));
+}
+if(isset($_POST["about_article2_u"]))
+{
+	$sql = "UPDATE sitepage SET About_Article2=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["about_article2"]));
+}
+if(isset($_POST["about2_title_u"]))
+{
+	$sql = "UPDATE sitepage SET About2_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["about2_title"]));
+}
+
+if(isset($_POST["about2_article_u"]))
+{
+	$sql = "UPDATE sitepage SET About2_Article=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["about2_article"]));
+}
+if(isset($_POST["about2_button_title_u"]))
+{
+	$sql = "UPDATE sitepage SET About2_Button_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["about2_button_title"]));
+}
+if(isset($_POST["about2_button_link_u"]))
+{
+	$sql = "UPDATE sitepage SET About2_Button_Link=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["about2_button_link"]));
+}
+if(isset($_POST["services_title_u"]))
+{
+	$sql = "UPDATE sitepage SET Services_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["services_title"]));
+}
+if(isset($_POST["services_article_u"]))
+{
+	$sql = "UPDATE sitepage SET Services_Article=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["services_article"]));
+}
+if(isset($_POST["projects_title_u"]))
+{
+	$sql = "UPDATE sitepage SET Projects_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["projects_title"]));
+}
+if(isset($_POST["projects_article_u"]))
+{
+	$sql = "UPDATE sitepage SET Projects_Article=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["projects_article"]));
+}
+
+
+if(isset($_POST["menu-add"]))
+{
+	$menutitletxt = $_POST["menu-title"];
+	$menulinktxt = $_POST["menu-link"];
+}
+
+
+//------POST İŞLEMLERİ -------------------- BİTİŞ -------------------
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,21 +261,24 @@
                         <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Site Page Settings</h1>
 						
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Logo Title</h2>
+						<form method="POST" action="#">
                                  <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="logo-title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="logo-title-update" id="logo-title-update">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+						</form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Menu Add</h2>
-
+                        <form method="POST" action="#">
                         <h3>Menu Title</h3>
-                        <input type="text" name="title" class="form-control" placeholder="">
+                        <input type="text" name="menu-title" class="form-control" placeholder="">
                         <h3>Menu Link</h3>
-                        <input type="text" name="title" class="form-control" placeholder=""> <br>
-                        <input type="submit" class="btn btn-primary" name="">
+                        <input type="text" name="menu-link" class="form-control" placeholder=""> <br>
+                        <input type="submit" class="btn btn-primary" name="menu-add" id="menu-add" value="Add">
+						</form>
 
 
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Menu Update & Delete</h2>
@@ -178,9 +292,16 @@
                                             <th>Menu Title</th>
                                             <th>Menu Link</th>
                                             <th>Menu Delete</th>
-                                            <th>Menu Update</th>
-                                            
+                                            <th>Menu Update</th>                                        
                                         </tr>
+										<tr>
+						  <td>1</td>
+						  <form method="POST" action="#">
+						  <td><input name="menu-title-u" type="text" class="form-control" value=""></td>
+						  <td><input name="menu_link-u" type="text" class="form-control" value=""></td>
+						  <td><input type="submit" class="btn btn-primary" name="menu-update-u" value="Update" id="menu-update-u"></td>
+						  </form>
+						  </tr>
                                     </thead>
                                     <tbody>   
                                         </tr>
@@ -225,84 +346,102 @@
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About Section 1</h2>
 
 						<h3 class="page-header">Title</h3>
+						<form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="about_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="about_title_u" id="about_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+								 </form>
 						<h3 class="page-header">article 1</h3>
-                        
-                                 <textarea class="ckeditor" name="editor"></textarea><br>
-                                 <button class="btn btn-success" type="submit" name="article1-update" id="title-update">
+                        <form method="POST" action="#">
+                                 <textarea class="ckeditor" name="about_article1"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="about_article1_u" id="about_article2_u">
                                  <b>Update</b>
                                  </button>
+								 </form>
                                   
                                  
 						<h3 class="page-header">article 2</h3>
-                        
-                                 <textarea class="ckeditor" name="editor"></textarea><br>
-                                 <button class="btn btn-success" type="submit" name="article2-update" id="title-update">
+                        <form method="POST" action="#">
+                                 <textarea class="ckeditor" name="about_article2"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="about_article2_u" id="about_article2_u">
                                  <b>Update</b>
                                  </button>
+								  </form>
                                   
                                  
                                  
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About Section 2</h2>
 
 						<h3 class="page-header">Title</h3>
+						<form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="about2_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="about2_title_u" id="about2_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+								 </form>
 						<h3 class="page-header">article 1</h3>
-                        <textarea class="ckeditor" name="editor"></textarea><br>
-                                 <button class="btn btn-success" type="submit" name="article1-update" id="title-update">
+						<form method="POST" action="#">
+                        <textarea class="ckeditor" name="about2_article"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="about2_article_u" id="about2_article_u">
                                  <b>Update</b>
                                  </button>
+								 </form>
+								 <form method="POST" action="#" enctype="multipart/form-data">
 						<h3 class="page-header">Profile image 2</h3>
-                                <input type="file" name=""><br>
-                                <input type="submit" class="btn btn-success" name="">
+                                <input type="file" name="about2_pp"><br>
+                                <input type="submit" class="btn btn-success" name="about2_pp_u">
+								</form>
 						<h3 class="page-header">Button Title</h3>
+						<form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="about2_button_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="about2_button_title_u" id="about2_button_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+								 </form>
+								 <form method="POST" action="#">
 						<h3 class="page-header">Button Link</h3>
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="about2_button_link" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="about2_button_link_u" id="about2_button_link_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+								 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Services </h2>
 
 						<h3 class="page-header">Title</h3>
+						<form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="services_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="services_title_u" id="services_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+								 </form>
 						<h3 class="page-header">article</h3>
-                                <textarea class="ckeditor" name="editor"></textarea><br>
-                                 <button class="btn btn-success" type="submit" name="article2-update" id="title-update">
+						<form method="POST" action="#">
+                                <textarea class="ckeditor" name="services_article"></textarea><br>
+                                 <button class="btn btn-success" type="submit" name="services_article_u" id="services_article_u">
                                  <b>Update</b>
                                  </button>
+								 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Section Services Add</h2>
                                 
                                 <h3 class="page-header">Services İmage</h3>
@@ -344,19 +483,23 @@
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Projects</h2>
 
 						<h3 class="page-header">Title</h3>
+						<form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="projects_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="projects_title_u" id="projects_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+								 </form>
 						<h3 class="page-header">article</h3>
-                        <textarea class="ckeditor" name="editor"></textarea> <br>
-                                <button class="btn btn-success" type="submit" name="article2-update" id="title-update">
+						<form method="POST" action="#">
+                        <textarea class="ckeditor" name="projects_article"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="projects_article_u" id="projects_article_u">
                                  <b>Update</b>
                                  </button>
+								 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Project Add</h2>
                         <h3 class="page-header">Project-Title</h3>
                             <input type="text" name="title" class="form-control" placeholder="">
