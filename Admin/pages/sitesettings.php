@@ -22,6 +22,21 @@ if(isset($_POST["about2_pp_u"]))
                           $sonuc = $query->execute(array($_FILES["about2_pp"]["name"]));
           
 }
+if(isset($_POST["aboutme_pp_u"]))
+{
+
+         copy($_FILES['aboutme_pp']['tmp_name'] , "../image/upload/" . $_FILES['aboutme_pp']['name']); 
+         
+         $resim = "../image/upload/" . $_FILES['aboutme_pp']['name'];
+         
+    
+        $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
+              
+        $sql = "UPDATE sitepage SET Aboutme_PP=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_FILES["aboutme_pp"]["name"]));
+          
+}
   
 
 //------POST İŞLEMLERİ --------------------
@@ -100,6 +115,103 @@ if(isset($_POST["projects_article_u"]))
                           $query = $db->prepare($sql);
                           $sonuc = $query->execute(array($_POST["projects_article"]));
 }
+if(isset($_POST["aboutme_main_title_u"]))
+{
+  $sql = "UPDATE sitepage SET Aboutme_Main_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["aboutme_main_title"]));
+}
+if(isset($_POST["aboutme_title_u"]))
+{
+  $sql = "UPDATE sitepage SET Aboutme_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["aboutme_title"]));
+}
+if(isset($_POST["aboutme_article_u"]))
+{
+  $sql = "UPDATE sitepage SET Aboutme_Article=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["aboutme_article"]));
+}
+if(isset($_POST["social_title_u"]))
+{
+  $sql = "UPDATE sitepage SET Social_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["social_title"]));
+}
+if(isset($_POST["social_facebook_u"]))
+{
+  $sql = "UPDATE sitepage SET Social_Facebook=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["social_facebook"]));
+}
+if(isset($_POST["social_article_u"]))
+{
+  $sql = "UPDATE sitepage SET Social_Article=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["social_article"]));
+}
+if(isset($_POST["social_twitter_u"]))
+{
+  $sql = "UPDATE sitepage SET Social_Twitter=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["social_twitter"]));
+}
+if(isset($_POST["social_instagram_u"]))
+{
+  $sql = "UPDATE sitepage SET Social_instagram=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["social_instagram"]));
+}
+if(isset($_POST["social_youtube_u"]))
+{
+  $sql = "UPDATE sitepage SET Social_Youtube=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["social_youtube"]));
+}
+if(isset($_POST["contact_title_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_title"]));
+}
+if(isset($_POST["contact_article_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Article=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_article"]));
+}
+if(isset($_POST["contact_adres_title_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Adress_Title=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_adres_title"]));
+}
+if(isset($_POST["contact_adres_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Adress=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_adres"]));
+}
+if(isset($_POST["contact_phone_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Phone=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_phone"]));
+}
+if(isset($_POST["contact_mail_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Mail=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_mail"]));
+}
+if(isset($_POST["contact_mainmail_u"]))
+{
+  $sql = "UPDATE sitepage SET Contact_Main_Mail=?  WHERE id=1";
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($_POST["contact_mainmail"]));
+}
+
 
 
 if(isset($_POST["menu-add"]))
@@ -445,6 +557,7 @@ if(isset($_POST["menu-add"]))
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Section Services Add</h2>
                                 
                                 <h3 class="page-header">Services İmage</h3>
+                                
                                 <input type="file" name="">
                                 <h3>Services Title</h3>
                                 <input type="text" name="title" class="form-control" placeholder="">
@@ -483,6 +596,7 @@ if(isset($_POST["menu-add"]))
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Projects</h2>
 
 						<h3 class="page-header">Title</h3>
+
 						<form method="POST" action="#">
                         <div class="input-group custom-search-form">
                                  <input type="text" name="projects_title" class="form-control" placeholder="">
@@ -543,143 +657,177 @@ if(isset($_POST["menu-add"]))
                         <!-- /.panel-body -->
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About me</h2>
 						<h3 class="page-header">Main Title</h3>
+                                <form method="POST" action="#">
                                 <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="aboutme_main_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="aboutme_main_title_u" id="aboutme_main_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
                         <h3 class="page-header">Title</h3>
+                                <form method="POST" action="#">
                                 <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="aboutme_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="aboutme_title_u" id="aboutme_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
                                 
                         <h3 class="page-header">About me image</h3>
-                                <input type="file" name=""><br>
-                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                <form method="POST" action="#" enctype="multipart/form-data">
+                                <input type="file" name="aboutme_pp"><br>
+                                <button class="btn btn-success" type="submit" name="aboutme_pp_u" id="aboutme_pp_u">
                                  <b>Update</b>
                                  </button>
+                                 </form>
 
 						<h3 class="page-header">Article</h3>
-                                <textarea class="ckeditor" name="editor"></textarea><br>
-                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                <form method="POST" action="#" enctype="multipart/form-data">
+                                <textarea class="ckeditor" name="aboutme_article"></textarea><br>
+                                <button class="btn btn-success" type="submit" name="aboutme_article_u" id="aboutme_article_u">
                                  <b>Update</b>
                                  </button>
+                                 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Social</h2>
 
 						<h3 class="page-header">Title</h3>
-                        <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <form method="POST" action="#">
+                                <div class="input-group custom-search-form">
+                                 <input type="text" name="social_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="social_title_u" id="social_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Article</h3>
-                        <textarea class="ckeditor" name="editor"></textarea> <br>
-                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                            <form method="POST" action="#">
+                        <textarea class="ckeditor" name="social_article"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="social_article_u" id="title-update">
                                  <b>Update</b>
                                  </button>
+                                 </form>
 						<h3 class="page-header">Facebook</h3>
+                        <form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="social_facebook" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="social_facebook_u" id="social_facebook_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Twitter</h3>
+                        <form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="social_twitter" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="social_twitter_u" id="social_twitter_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">İnstagram</h3>
+            <form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="social_instagram" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="social_instagram_u" id="social_instagram_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Youtube</h3>
+            <form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="social_youtube" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="social_youtube_u" id="social_youtube_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Contact</h2>
 						<h3 class="page-header">Title</h3>
+            <form method="POST" action="#">
                         <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="contact_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="contact_title_u" id="contact_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Article</h3>
-                                <textarea class="ckeditor" name="editor"></textarea> <br>
-                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+             <form method="POST" action="#">
+                                <textarea class="ckeditor" name="contact_article"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="contact_article_u" id="contact_article_u">
                                  <b>Update</b>
                                  </button>
+                                 </form>
 						<h3 class="page-header">Adress Title</h3>
+            <form method="POST" action="#">
                                 <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="contact_adres_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="contact_adres_title_u" id="contact_adres_title_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Adress</h3>
-                                <textarea class="ckeditor" name="editor"></textarea> <br>
-                                <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+            <form method="POST" action="#">
+                                <textarea class="ckeditor" name="contact_adres"></textarea> <br>
+                                <button class="btn btn-success" type="submit" name="contact_adres_u" id="contact_adres_u">
                                  <b>Update</b>
                                  </button>
+                                 </form>
 						<h3 class="page-header">Phone</h3>
+            <form method="POST" action="#">
                                 <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="contact_phone" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="contact_phone_u" id="contact_phone_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Mail</h3>
+            <form method="POST" action="#">
                                 <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="contact_mail" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="contact_mail_u" id="contact_mail_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						<h3 class="page-header">Main Mail</h3>
+            <form method="POST" action="#">
                                 <div class="input-group custom-search-form">
-                                 <input type="text" name="title" class="form-control" placeholder="">
+                                 <input type="text" name="contact_mainmail" class="form-control" placeholder="">
                                  <span class="input-group-btn">
-                                 <button class="btn btn-success" type="submit" name="title-update" id="title-update">
+                                 <button class="btn btn-success" type="submit" name="contact_mainmail_u" id="contact_mainmail_u">
                                  <b>Update</b>
                                  </button>
                                  </span>
                                  </div>
+                                 </form>
 						
 						
 						
