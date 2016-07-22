@@ -468,66 +468,38 @@ if(isset($_GET['ud']))
                         <button class="btn btn-default" type="sumbit" name="desp-update" id="desp-update"><b>Update</b></button> <br> <br>
                         </form>
 						</section>
+            <section id="profil-pictures">
 						 <h2 class="page-header">Profile-Picture Set</h2>
 						 <img src="../image/upload/<?php echo $resimpp?>" width=100px; height=100px; />
-						<form method="POST" action="#" enctype="multipart/form-data">
+						<form method="POST" action="#profil-pictures" enctype="multipart/form-data">
                         <input name="dosya" type="file"> <br>
                         <input type="submit" class="btn btn-primary" name="image-update" id="image-update"><br><br>
 						</form>
+            </section>
+            <section id="background-picture">
 						<h2 class="page-header">BackGround-Picture Set</h2>
 						 <img src="../image/upload/<?php echo $resimbgp?>" width=100px; height=100px; />
-						<form method="POST" action="#" enctype="multipart/form-data">
+						<form method="POST" action="#background-picture" enctype="multipart/form-data">
                         <input name="dosyabg" type="file"> <br>
                         <input type="submit" class="btn btn-primary" name="bgimage-update" id="bgimage-update"><br><br>
 						</form>
+            </section>
+	
 						 <h2 class="page-header">Button Add</h2>
 						 <h3 class="page-header">Button title</h3>
-						 <form method="POST" action="#">
+						 <section id="button-add">
+						 <form method="POST" action="#button-add">
 						 <input name="btnaddtitle" type="text" class="form-control" placeholder="Title">
 						 <h3 class="page-header">Button Link</h3>
 						 <input name="btnaddlink" type="text" class="form-control" placeholder="Link"><br><br>
 						 <input type="submit" class="btn btn-primary" name="button-add" id="button-add">
 						 </form>
-						 <h2 class="page-header">Social Link Set</h2>
-						 <h2 class="page-header">Twitter</h2>
-						 <form method="POST" action="#">
-						 <div class="input-group custom-search-form">
-                                <input name="twitter" type="text" class="form-control" placeholder="Twitter_Link">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="twitter-update" id="twitter-update">
-                                    <b>Update</b>
-                                </button>
-                            </span>
-                            </div>
-							</form>
-						 <h2 class="page-header">Facebook</h2>
-						 <form method="POST" action="#">
-						 <div class="input-group custom-search-form">
-                                <input name="facebook" type="text" class="form-control" placeholder="Facebook_Link">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="facebook-update" id="facebook-update">
-                                    <b>Update</b>
-                                </button>
-                            </span>
-                            </div>
-							</form>
-						 <h2 class="page-header">Instagram</h2>
-						 <form method="POST" action="#">
-						 <div class="input-group custom-search-form">
-                                <input name="insta" type="text" class="form-control" placeholder="Instagram_Link">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="sumbit" name="insta-update" id="insta-update">
-                                    <b>Update</b>
-                                </button>
-                            </span>
-                            </div>
-							</form>
-							<br><br>
-							<div class="panel panel-default">
+						 <div class="panel panel-default">
                         <div class="panel-heading">
                             Button Update
                         </div>
                         <!-- /.panel-heading -->
+						
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover">
@@ -589,6 +561,49 @@ if(isset($_GET['ud']))
                         </div>
                         <!-- /.panel-body -->
                     </div>
+						 
+						 
+             </section>
+             <section id="social">
+						 <h2 class="page-header">Social Link Set</h2>
+						 <h2 class="page-header">Twitter</h2>
+
+						 <form method="POST" action="#social">
+						 <div class="input-group custom-search-form">
+                                <input name="twitter" type="text" class="form-control" placeholder="Twitter_Link">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="sumbit" name="twitter-update" id="twitter-update">
+                                    <b>Update</b>
+                                </button>
+                            </span>
+                            </div>
+							</form>
+
+						 <h2 class="page-header">Facebook</h2>
+						 <form method="POST" action="#social">
+						 <div class="input-group custom-search-form">
+                                <input name="facebook" type="text" class="form-control" placeholder="Facebook_Link">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="sumbit" name="facebook-update" id="facebook-update">
+                                    <b>Update</b>
+                                </button>
+                            </span>
+                            </div>
+							</form>
+						 <h2 class="page-header">Instagram</h2>
+						 <form method="POST" action="#social">
+						 <div class="input-group custom-search-form">
+                                <input name="insta" type="text" class="form-control" placeholder="Instagram_Link">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="sumbit" name="insta-update" id="insta-update">
+                                    <b>Update</b>
+                                </button>
+                            </span>
+                            </div>
+							</form>
+              </section>
+							<br><br>
+							
 						 
 						 
                        

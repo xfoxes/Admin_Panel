@@ -477,9 +477,9 @@ if(isset($_POST["menu-update-u"]))
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Site Page Settings</h1>
-						
+						<section id="logo-title">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Logo Title</h2>
-						<form method="POST" action="#">
+						<form method="POST" action="#logo-title">
                                  <div class="input-group custom-search-form">
                                  <input type="text" name="logo-title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -489,14 +489,17 @@ if(isset($_POST["menu-update-u"]))
                                  </span>
                                  </div>
 						</form>
+            </section>
+            <seciton id="menu-add">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Menu Add</h2>
-                        <form method="POST" action="#">
+                        <form method="POST" action="#menu-add">
                         <h3>Menu Title</h3>
                         <input type="text" name="menu-title" class="form-control" placeholder="">
                         <h3>Menu Link</h3>
                         <input type="text" name="menu-link" class="form-control" placeholder=""> <br>
                         <input type="submit" class="btn btn-primary" name="menu-add" id="menu-add" value="Add">
 						</form>
+            </seciton>
 
 
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Menu Update & Delete</h2>
@@ -554,8 +557,9 @@ if(isset($_POST["menu-update-u"]))
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
+                        <seciton id="slider-add"> 
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Slider Add</h2>
-						 <form method="POST" action="#" enctype="multipart/form-data">
+						 <form method="POST" action="#slider-add" enctype="multipart/form-data">
                                 <h3>Slider Title</h3>
                                 <input type="text" name="slider_title" class="form-control" placeholder="">
                                 <h3>Slider Description</h3>
@@ -564,6 +568,7 @@ if(isset($_POST["menu-update-u"]))
                                 <input type="file" name="slider_pp"><br>
                                 <input type="submit" class="btn btn-primary" name="slider_add" value="Add">
 								</form>
+                </seciton>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Slider Update & Delete</h2>
                                 <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -613,10 +618,11 @@ if(isset($_POST["menu-update-u"]))
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
+                        <section id="about-section1">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About Section 1</h2>
 
 						<h3 class="page-header">Title</h3>
-						<form method="POST" action="#">
+						<form method="POST" action="#about-section1">
                         <div class="input-group custom-search-form">
                                  <input type="text" name="about_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -626,6 +632,7 @@ if(isset($_POST["menu-update-u"]))
                                  </span>
                                  </div>
 								 </form>
+
 						<h3 class="page-header">article 1</h3>
                         <form method="POST" action="#">
                                  <textarea class="ckeditor" name="about_article1"></textarea><br>
@@ -643,12 +650,12 @@ if(isset($_POST["menu-update-u"]))
                                  </button>
 								  </form>
                                   
-                                 
-                                 
+                       </section>          
+                <section id="about-section2">                 
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About Section 2</h2>
 
 						<h3 class="page-header">Title</h3>
-						<form method="POST" action="#">
+						<form method="POST" action="#about-section2">
                         <div class="input-group custom-search-form">
                                  <input type="text" name="about2_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -692,10 +699,13 @@ if(isset($_POST["menu-update-u"]))
                                  </span>
                                  </div>
 								 </form>
+                 </section>
+                 <section id="services">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Services </h2>
 
 						<h3 class="page-header">Title</h3>
-						<form method="POST" action="#">
+
+						<form method="POST" action="#services">
                         <div class="input-group custom-search-form">
                                  <input type="text" name="services_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -712,8 +722,10 @@ if(isset($_POST["menu-update-u"]))
                                  <b>Update</b>
                                  </button>
 								 </form>
+                 </section>
+                 <section id="services-add">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Section Services Add</h2>
-                                <form method="POST" action="#" enctype="multipart/form-data">
+                                <form method="POST" action="#services-add" enctype="multipart/form-data">
                                 <h3 class="page-header">Services İmage</h3>
                                 
                                 <input type="file" name="services-pp">
@@ -725,7 +737,7 @@ if(isset($_POST["menu-update-u"]))
                                  <b>Update</b>
                                  </button>
 								 </form>
-
+</section>
 
 						<h3 class="page-header">Section Services Update & Delete</h3>
                                 <!-- /.panel-heading -->
@@ -772,12 +784,12 @@ if(isset($_POST["menu-update-u"]))
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
-
+<section id="projects">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Projects</h2>
 
 						<h3 class="page-header">Title</h3>
 
-						<form method="POST" action="#">
+						<form method="POST" action="#projects">
                         <div class="input-group custom-search-form">
                                  <input type="text" name="projects_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -794,9 +806,11 @@ if(isset($_POST["menu-update-u"]))
                                  <b>Update</b>
                                  </button>
 								 </form>
+                 </section>
+                 <section id="projects-add">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Project Add</h2>
                         <h3 class="page-header">Project-Title</h3>
-						<form method="POST" action="#" enctype="multipart/form-data">
+						<form method="POST" action="#projects-add" enctype="multipart/form-data">
                             <input type="text" name="project-title" class="form-control" placeholder="">
                         <h3 class="page-header">Project-Article</h3>
                         <textarea class="ckeditor" name="project-article"></textarea> <br>
@@ -808,7 +822,7 @@ if(isset($_POST["menu-update-u"]))
                                  <b>Update</b>
                                  </button>
 					    </form>
-
+</section>
 
                                 
 
@@ -859,9 +873,10 @@ if(isset($_POST["menu-update-u"]))
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
+                        <section id="about">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">About me</h2>
 						<h3 class="page-header">Main Title</h3>
-                                <form method="POST" action="#">
+                                <form method="POST" action="#about">
                                 <div class="input-group custom-search-form">
                                  <input type="text" name="aboutme_main_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -898,10 +913,12 @@ if(isset($_POST["menu-update-u"]))
                                  <b>Update</b>
                                  </button>
                                  </form>
+                                 </section>
+                                 <section id="social">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Social</h2>
 
 						<h3 class="page-header">Title</h3>
-                                 <form method="POST" action="#">
+                                 <form method="POST" action="#social">
                                 <div class="input-group custom-search-form">
                                  <input type="text" name="social_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -962,9 +979,11 @@ if(isset($_POST["menu-update-u"]))
                                  </span>
                                  </div>
                                  </form>
+                                 </section>
+                                 <section id="contact">
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Contact</h2>
 						<h3 class="page-header">Title</h3>
-            <form method="POST" action="#">
+            <form method="POST" action="#contact">
                         <div class="input-group custom-search-form">
                                  <input type="text" name="contact_title" class="form-control" placeholder="">
                                  <span class="input-group-btn">
@@ -1032,6 +1051,7 @@ if(isset($_POST["menu-update-u"]))
                                  </span>
                                  </div>
                                  </form>
+                                 </section>
 						
 						
 						
