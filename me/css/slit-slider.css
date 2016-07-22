@@ -156,13 +156,13 @@
 
 .bg-img-1 {
 	background-image: url(../img/slider/banner.jpg);
-}
-.bg-img-2 {
+	}
+	.bg-img-2 {
 	background-image: url(../img/slider/affinity.jpeg);
-}
-.bg-img-3 {
+	}
+	.bg-img-3 {
 	background-image: url(../img/slider/cinelli.jpeg);
-}
+	}
 
 
 /* Animations for content elements */

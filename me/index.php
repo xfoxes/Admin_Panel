@@ -1,5 +1,45 @@
 <?php
 
+							
+
+include "../Admin/Pages/connect.php";
+$query = $db->query("select * from sitepage WHERE id = 1", PDO::FETCH_ASSOC);
+                          if($query->rowCount()){
+                          	// project_image eklenecek veri tabanına koymayı unutmuşuz galiba emin değilim çok uykum var :(
+                            foreach ($query as $row) {
+                                $logo_title = $row["Logo_Title"];
+                                $about_title = $row["About_Title"];
+                                $about_article1 = $row["About_Article1"];
+                                $about_article2 =$row["About_Article2"];
+                                $about2_title =$row["About2_Title"];
+                                $about2_article1 =$row["About2_Article"];
+                                $about2_pp =$row["About2_PP"];
+                                $about2_button_title =$row["About2_Button_Title"];
+                                $about2_button_link =$row["About2_Button_Link"];
+                                $services_title =$row["Services_Title"];
+                                $services_article =$row["Services_Article"];
+                                $project_title =$row["Projects_Title"];
+                                $project_article =$row["Projects_Article"];
+                                $aboutme_main_title =$row["Aboutme_Main_Title"];
+                                $about_title =$row["Aboutme_Title"];
+                                $aboutme_pp =$row["Aboutme_PP"];
+                                $aboutme_article =$row["Aboutme_Article"];
+                                $social_title =$row["Social_Title"];
+                                $social_article =$row["Social_Article"];
+                                $social_facebook =$row["Social_Facebook"];
+                                $social_twitter =$row["Social_Twitter"];
+                                $social_instagram =$row["Social_instagram"];
+                                $social_youtube =$row["Social_Youtube"];
+                                $contact_title =$row["Contact_Title"];
+                                $contact_article =$row["Contact_Article"];
+                                $contact_adress_title =$row["Contact_Adress_Title"];
+                                $contact_adress =$row["Contact_Adress"];
+                                $contact_phone =$row["Contact_Phone"];
+                                $contact_mail =$row["Contact_Mail"];
+                                $contact_main_mail =$row["Contact_Main_Mail"];
+
+                            }
+                        }
 
 
 
@@ -145,7 +185,7 @@ else
 					
 					<!-- logo -->
 					<h1 class="navbar-brand">
-						<a href="#body">Onat Aktaş</a>
+						<a href="#body"><?php echo $logo_title; ?></a>
 					</h1>
 					<!-- /logo -->
                 </div>
@@ -154,12 +194,18 @@ else
                 
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <ul id="nav" class="nav navbar-nav">
-                        <li><a href="#body">Anasayfa</a></li>
-                        <li><a href="#service">Ne yapıyorum ?</a></li>
-                        <li><a href="#portfolio">portföy</a></li>
-                        <li><a href="#testimonials">Başarılar</a></li>
-                        <li><a href="#price">Hizmetler</a></li>
-                        <li><a href="#contact">İletişim</a></li>
+                    <?php $query = $db->query("select * from sitepagemenu", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      	?>
+                                      		<li><a href="<?php echo $row["Menu_Link"] ?>"><?php echo $row["Menu_Title"] ?></a></li>
+                                      	<?php
+                                      }
+                                  }
+
+                                       ?>
+                        
+                       
                     </ul>
                 </nav>
 				<!-- /main nav -->
@@ -180,49 +226,34 @@ else
             <div id="slider" class="sl-slider-wrapper">
 
 				<div class="sl-slider">
-				
+				<?php $query = $db->query("select * from  sitepageslider", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      	?>
+                                      		
+                                      	
 					<div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
 
-						<div class="bg-img bg-img-1"></div>
+						<div class="bg-img bg-img1"><img width="100%" height="100%" src="../Admin/image/upload/<?php echo $row["Slider_PP"] ?>"</div>
 
 						<div class="slide-caption">
                             <div class="caption-content">
-                                <h2 class="animated fadeInDown">IZTECH RoboLeague 2015</h2>
-                                <span class="animated fadeInDown">Yarışma sonra MSP'ler ile birlikte bir fotoğraf</span>
+                                <h2 class="animated fadeInDown"><?php echo $row["Slider_Title"] ?></h2>
+                                <span class="animated fadeInDown"><?php echo $row["Slider_Desc"] ?></span>
                                
                             </div>
                         </div>
 						
 					</div>
 					
-					<div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
 					
-						<div class="bg-img bg-img-2"></div>
-						<div class="slide-caption">
-                            <div class="caption-content">
-                                <h2>Microsoft İstanbul Kick-off</h2>
-                                <span>Microsoft istanbul ofisinde geçirdiğimiz 3 günlük kick-off dan bir fotoğraf</span>
-                                <!-- <a href="#" class="btn btn-blue btn-effect">Join US</a> DAHA SONRA KULLANILABİLİR -->
-                            </div>
-                        </div>
-						
-					</div>
-					
-					<div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-						
-						<div class="bg-img bg-img-3"></div>
-						<div class="slide-caption">
-                            <div class="caption-content">
-                                <h2>Windows 10 Universal Windows Platformu Uygulama Geliştirme Etkinliği</h2>
-                                <span>Deniz müzesinde olan geliştirici kampında bir fotoğraf</span>
-                                 <!-- <a href="#" class="btn btn-blue btn-effect">Join US</a> DAHA SONRA KULLANILABİLİR -->
-                            </div>
-                        </div>
-
-					</div>
 
 				</div><!-- /sl-slider -->
+ <?php
+                                      }
+                                  }
 
+                                       ?>
                 <!-- 
                 <nav id="nav-arrows" class="nav-arrows">
                     <span class="nav-arrow-prev">Previous</span>
@@ -259,13 +290,13 @@ else
 					<div class="row">
 						<div class="col-md-4 wow animated fadeInLeft">
 							<div class="recent-works">
-								<h3>Uğraştığım bir kaç şey</h3>
+								<h3><?php echo $about_title; ?></h3>
 								<div id="works">
 									<div class="work-item">
-										<p>Yarıda bıraktığım oyun projeleri üstünde çalışmaya devam ediyorum en kısa zamanda yayınlayacağım</p>
+										<?php echo $about_article1; ?>
 									</div>
 									<div class="work-item">
-										<p>Öz geçmiş CV sitesinden yani şuan bulunduğunuz siteye ek olarak kısa zamanda da bir blog eklemeyi düşünüyorum.</p>
+										<?php echo $about_article2; ?>
 									</div>
 									
 								</div>
@@ -273,12 +304,12 @@ else
 						</div>
 						<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
 							<div class="welcome-block">
-								<h3>Siteme Hoşgeldin :)</h3>								
+								<h3><?php echo $about2_title; ?></h3>								
 						     	 <div class="message-body">
-									<img src="img/member-1.jpg" class="pull-left" alt="member">
-						       		<p>Benim Adım sitenin adından da anlaşılacağı üzere Onat Aktaş , Celal Bayar Üniversitesi Yazılım Mühendisliği bölümünde Hazırlık sınıfında okuyorum , ASP.net ve PHP ile web Programlama , Unity 3D game engine ile oyun yapımı ve windows üzerine uygulama geliştirme ile uğrasıyorum. </p>
+									<img src="../Admin/image/upload/<?php echo $about2_pp; ?>" class="pull-left" alt="member">
+						       		<?php echo $about2_article1 ?>
 						     	 </div>
-						       	<a href="#" class="btn btn-border btn-effect pull-right">Blog'a Git</a>
+						       	<a href="<?php echo $about2_button_link; ?>" class="btn btn-border btn-effect pull-right"><?php echo $about2_button_title; ?></a>
 						    </div>
 						</div>
 					</div>
@@ -293,51 +324,45 @@ else
 					<div class="row">
 					
 						<div class="sec-title text-center">
-							<h2 class="wow animated bounceInLeft">Neler Yapıyorum</h2>
-							<p class="wow animated bounceInRight">Kısaca kendimi geliştirmek adına herşeyi...</p>
+							<h2 class="wow animated bounceInLeft"><?php echo $services_title; ?></h2>
+							<p class="wow animated bounceInRight"><?php echo $services_article; ?></p>
                             <p><a href='http://armut.com/HizmetVeren/onat-aktas-izmir-bornova-web-tasarim-ve-programlama_152056'> Onat Aktaş İzmir Bornova Web Tasarım ve Programlama - Armut.com  </a></p>
 						</div>
 						
+
+
+
+
+
+							<?php $query = $db->query("select * from  sitepageslider", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      	?>
+
+
+
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
 							<div class="service-item">
 								<div class="service-icon">
 									<i class="fa fa-home fa-3x"></i>
+									<img src="../Admin/image/upload/<?php echo $project_PP; ?>" />
 								</div>
-								<h3>Web sitesi programlama</h3>
-								<p>ASP.NET ve PHP ile size istediğiniz özelliklere sahip bir site yapabilirim</p>
+								<h3><?php echo $project_title; ?></h3>
+								<?php echo $project_article; ?>
 							</div>
 						</div>
 					
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
-							<div class="service-item">
-								<div class="service-icon">
-									<i class="fa fa-tasks fa-3x"></i>
-								</div>
-								<h3>Oyun Yapımı</h3>
-								<p>Unity 3D Game Engine ile sizlere kafanızda ki oyunu ekibimle beraber yapabilirim.</p>
-							</div>
-						</div>
-					
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
-							<div class="service-item">
-								<div class="service-icon">
-									<i class="fa fa-clock-o fa-3x"></i>
-								</div>
-								<h3>Logo Tasarımı</h3>
-								<p>Siteniz , Şirketiniz , Oyununuz , Sayfanız ve diğer şeyler için size logo tasarlayabilirim</p>
-							</div>
-						</div>
-					
-						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
-							<div class="service-item">
-								<div class="service-icon">
-									<i class="fa fa-heart fa-3x"></i>
-								</div>
-								
-								<h3>Windows Uygulama</h3>
-								<p>Şirketinizin veya sizin ihtiyacınız olan uygulamaları sizlere yapabilirim.</p>							
-							</div>
-						</div>
+						<?php
+					}
+				}
+				?>
+
+
+
+
+
+
+
 						
 					</div>
 				</div>
