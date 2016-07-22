@@ -8,7 +8,7 @@ $query = $db->query("select * from sitepage WHERE id = 1", PDO::FETCH_ASSOC);
                           	// project_image eklenecek veri tabanına koymayı unutmuşuz galiba emin değilim çok uykum var :(
                             foreach ($query as $row) {
                                 $logo_title = $row["Logo_Title"];
-                                $about_title = $row["About_Title"];
+                                $about_title1 = $row["About_Title"];
                                 $about_article1 = $row["About_Article1"];
                                 $about_article2 =$row["About_Article2"];
                                 $about2_title =$row["About2_Title"];
@@ -21,7 +21,7 @@ $query = $db->query("select * from sitepage WHERE id = 1", PDO::FETCH_ASSOC);
                                 $project_title =$row["Projects_Title"];
                                 $project_article =$row["Projects_Article"];
                                 $aboutme_main_title =$row["Aboutme_Main_Title"];
-                                $about_title =$row["Aboutme_Title"];
+                                $aboutme_title =$row["Aboutme_Title"];
                                 $aboutme_pp =$row["Aboutme_PP"];
                                 $aboutme_article =$row["Aboutme_Article"];
                                 $social_title =$row["Social_Title"];
@@ -79,7 +79,7 @@ $mail->SMTPSecure = 'tls';
 $mail->Username = 'onataktasdestek@gmail.com';
 $mail->Password = '987654321q';
 $mail->SetFrom($mail->Username, $isim);
-$mail->AddAddress('bourn328@gmail.com', $email);
+$mail->AddAddress($contact_main_mail, $email);
 $mail->CharSet = 'UTF-8';
 $mail->Subject = $baslik;
 $mail->MsgHTML($icerik);
@@ -198,7 +198,7 @@ else
                                        if($query->rowCount()){
                                       foreach ($query as $row) {
                                       	?>
-                                      		<li><a href="<?php echo $row["Menu_Link"] ?>"><?php echo $row["Menu_Title"] ?></a></li>
+                                      		<li><a style="font-weight:bold;" href="<?php echo $row["Menu_Link"] ?>"><?php echo $row["Menu_Title"] ?></a></li>
                                       	<?php
                                       }
                                   }
@@ -290,7 +290,7 @@ else
 					<div class="row">
 						<div class="col-md-4 wow animated fadeInLeft">
 							<div class="recent-works">
-								<h3><?php echo $about_title; ?></h3>
+								<h3><?php echo $about_title1; ?></h3>
 								<div id="works">
 									<div class="work-item">
 										<?php echo $about_article1; ?>
@@ -334,7 +334,7 @@ else
 
 
 
-							<?php $query = $db->query("select * from  sitepageslider", PDO::FETCH_ASSOC);
+							<?php $query = $db->query("select * from  sitepageservices", PDO::FETCH_ASSOC);
                                        if($query->rowCount()){
                                       foreach ($query as $row) {
                                       	?>
@@ -343,12 +343,11 @@ else
 
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
 							<div class="service-item">
-								<div class="service-icon">
-									<i class="fa fa-home fa-3x"></i>
-									<img src="../Admin/image/upload/<?php echo $project_PP; ?>" />
-								</div>
-								<h3><?php echo $project_title; ?></h3>
-								<?php echo $project_article; ?>
+								
+									<img width=150 height=150 src="../Admin/image/upload/<?php echo $row["Services_PP"]; ?>" />
+								
+								<h3><?php echo $row["Services_Title"]; ?></h3>
+								<?php echo $row["Services_Desc"]; ?>
 							</div>
 						</div>
 					
@@ -375,50 +374,44 @@ else
 					<div class="row">
 					
 						<div class="sec-title text-center wow animated fadeInDown">
-							<h2>Yaptığım Projeler</h2>
-							<p>Gerçekleştirdiğim projeleri buradan takip edebilirsiniz.</p>
+							<h2><?php echo $project_title; ?></h2>
+							<?php echo $project_article; ?>
 						</div>
 						
 
 						<ul class="project-wrapper wow animated fadeInUp">
-							<li class="portfolio-item">
-								<img src="img/portfolio/item.jpg" class="img-responsive" alt="Unity 3D TR Oyun programlama ve Yapımı" />
-								<figcaption class="mask">
-									<h3>Unity 3D TR</h3>
-									<p>Herkesin oyun yapımı ile ilgili bilgi birikimlerini paylaşım yeni bilgiler öğrenebileceği bir site yaptım.</p>
-								</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Unity 3D TR" data-fancybox-group="works" href="img/portfolio/item.jpg"/>
-                                    <i class="fa fa-search"></i></a></li>
-									<li><a href="http://unity3dtr.com/"><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
-							<li class="portfolio-item">
-								<img src="img/portfolio/item2.jpg" class="img-responsive" alt="Nazar Halı Yıkama"/>
-								<figcaption class="mask">
-									<h3>İzmir Nazar Halı Yıkama</h3>
-									<p>İzmirde bulunan bir halı yıkamacı için açmış olduğum site</p>
-								</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Nazar Halı Yıkama" href="img/portfolio/item2.jpg" data-fancybox-group="works" /><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
-							<li class="portfolio-item">
-								<img src="img/portfolio/item3.jpg" class="img-responsive" alt="Glass Break Oyunu"/>
-								<figcaption class="mask">
-									<h3>Glass Break</h3>
-									<p>Kendimi Denemek için yapıp , yayınladığım bir basit similasyon oyunu</p>
-								</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Glass Break" data-fancybox-group="works" href="img/portfolio/item3.jpg"/><i class="fa fa-search"></i></a></li>
-									<li><a href="https://play.google.com/store/apps/details?id=com.Test.GlassBreak"><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
+						
+						
+						<?php $query = $db->query("select * from  sitepageproject", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      	?>
 
+                                <li class="portfolio-item">
+								<img width=375 height=250 src="../Admin/image/upload/<?php echo $row["Project_PP"]; ?>"  alt="<?php echo $row["Project_Art"]; ?>" />
+								<figcaption class="mask">
+									<h3><?php echo $row["Project_Title"]; ?></h3>
+									<?php echo $row["Project_Art"]; ?>
+								</figcaption>
+								<ul class="external">
+									<li><a class="fancybox" title="<?php echo $row["Project_Title"]; ?>" data-fancybox-group="works" href="../Admin/image/upload/<?php echo $row["Project_PP"]; ?>"/>
+                                    <i class="fa fa-search"></i></a></li>
+									<li><a href="<?php echo $row["Project_Link"]; ?>"><i class="fa fa-link"></i></a></li>
+								</ul>
+							</li>
+
+					
+						<?php
+					}
+				}
+				?>
+						
+						
+						
+							
+							
+							
+							
 						</ul>
 						
 					</div>
@@ -433,15 +426,17 @@ else
 						<div class="row">
 						
 							<div class="sec-title text-center white wow animated fadeInDown">
-								<h2>Hakkımda söylenenler</h2>
+								<h2><?php echo $aboutme_main_title; ?></h2>
 							</div>
 							
 							<div id="testimonial" class=" wow animated fadeInUp">
 								<div class="testimonial-item text-center">
-									<img src="img/yerlicevher.png" alt="Yerli Cevher Haber"/>
+									<img src="../Admin/image/upload/<?php echo $aboutme_pp ?>" alt="<?php echo $aboutme_title ?>"/>
 									<div class="clearfix">
-										<span>Yerli Cevher</span>
-										<p>Sizlere ilk olarak tanıtacağımız web sitesi ise <a style=" color:black;" href="http://unity3dtr.com/" rel="me"> Unity 3D</a> oyun motoru için Türkçe ders ve videolar sunan bir site. Onat Aktaş‘ın kurduğu bu yararlı siteye <a style=" color:black;" href="http://unity3dtr.com/" rel="me">Unity3dtr.com</a> adresinden ulaşabilir, sizler de ders ve video paylaşımında bulunabilirsiniz. Şunu unutmayalım, bilgi paylaştıkça çoğalır ve oyun sektörü için bu tarz girişimlere ülke olarak çok ihtiyacımız var.</p>
+										<span><?php echo $aboutme_title ?></span>
+										
+										<?php echo $aboutme_article ?>
+										
 									</div>
 								</div>
 								
@@ -453,93 +448,23 @@ else
 				</div>
 			</section>
 			<!-- end Testimonial section -->
-			
-			<!-- Price section -->
-			<section id="price">
-				<div class="container">
-					<div class="row">
-					
-						<div class="sec-title text-center wow animated fadeInDown">
-							<h2>Hizmetler</h2>
-							<p>Ücret karşılığı size Web hizmeti verebilirim.</p>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp">
-							<div class="price-table text-center">
-								<span>Alan Adı (Domain)</span>
-								<div class="value">
-									<span>TL</span>
-									<span>25,00</span><br>
-									<span>Yıllık</span>
-								</div>
-								<ul>
-									<li>1 Yıllık Kullanım</li>
-									<li>1 Yıllık Hizmet</li>
-									<li>Yenileme Desteği</li>
-									<li>Gizlilik Desteği</li>
-									<li><a href="#contact">İletişime Geç</a></li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.4s">
-							<div class="price-table featured text-center">
-								<span>Hosting</span>
-								<div class="value">
-									<span>TL</span>
-									<span>50,00</span><br>
-									<span>Yıllık</span>
-								</div>
-								<ul>
-									<li>15 GB Aylık Trafik</li>
-									<li>1 GB Alan</li>
-									<li>Linux Yada Windows</li>
-									<li>1 Yıllık Hizmet</li>
-									<li><a href="#contact">İletişime Geç</a></li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
-							<div class="price-table text-center">
-								<span>Web Site Kurulumu</span>
-								<div class="value">
-									<span>TL</span>
-									<span>Belirsiz</span><br>
-									<span>Yıllık</span>
-								</div>
-								<ul>
-									<li>Alan Adı (Domain) ve Hosting Dahil 1 Yıl Hizmet</li>
-									<li>Web sitesi Yönetimi Desteği</li>
-									<li>SEO Hizmeti</li>
-									<li>Sosyal Medya Desteği</li>
-									<li><a href="#contact">İletişime Geç</a></li>
-								</ul>
-							</div>
-						</div>
-		
-					</div>
-				</div>
-			</section>
-			<!-- end Price section -->
-			
 			<!-- Social section -->
 			<section id="social" class="parallax">
-				<div class="overlay">
+				<div class="overlay" style="background-color:#009EE3;>
 					<div class="container">
 						<div class="row">
 						
 							<div class="sec-title text-center white wow animated fadeInDown">
-								<h2>Beni Takip Et</h2>
-								<p>Asağıdaki butonlardan beni sosyal medyada takip edebilirsin ve iletişim kurabilirsiniz.</p>
+								<h2><?php echo $social_title ?></h2>
+								<?php echo $social_article ?>
 							</div>
-							
-							<ul class="social-button">
-								<li class="wow animated zoomIn"><a href="https://www.facebook.com/onat.aktas.52"><i class="fa fa-thumbs-up fa-2x"></i></a></li>
-								<li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://twitter.com/thetudors12"><i class="fa fa-twitter fa-2x"></i></a></li>
-								<li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/user/Bourn329"><i class="fa fa-dribbble fa-2x"></i></a></li>							
+							<div class="footer-social">
+							<ul>
+								<li class="wow animated zoomIn" data-wow-delay="1.2s"> <a href="<?php $social_facebook ?>"><i class="fa fa-thumbs-up fa-3x"></i></a></li>
+								<li class="wow animated zoomIn" data-wow-delay="1.2s"><a href="<?php $social_twitter ?>"><i class="fa fa-twitter fa-3x"></i></a></li>
+								<li class="wow animated zoomIn" data-wow-delay="1.2s"><a href="<?php $social_youtube ?>"><i class="fa fa-youtube fa-3x"></i></a></li>						
 							</ul>
-							
+							</div>
 						</div>
 					</div>
 				</div>
@@ -552,8 +477,8 @@ else
 					<div class="row">
 						
 						<div class="sec-title text-center wow animated fadeInDown">
-							<h2>İletişim</h2>
-							<p>Bana Mesaj atabilirsin.</p>
+							<h2><?php echo $contact_title ?></h2>
+							<?php echo $contact_article ?>
 						</div>
 						
 						
@@ -582,10 +507,10 @@ else
 						
 						<div class="col-md-5 wow animated fadeInRight">
 							<address class="contact-details">
-								<h3>İletişim Adreslerim</h3>						
-								<p><i class="fa fa-pencil"></i>Manisa / Turgutlu<span>Posta Kodu : 45400</span> <span>Selvitepe Mah. Ankara Asfaltı Üzeri No:18</span><span>Türkiye</span></p><br>
-								<p><i class="fa fa-phone"></i>Phone: Özel mesaj yoluyla isteyebilirsin :)</p>
-								<p><i class="fa fa-envelope"></i>onat.akts@hotmail.com</p>
+								<h3><?php echo $contact_adress_title ?></h3>						
+								<p><i class="fa fa-pencil"></i><?php echo $contact_adress ?>
+								<p><i class="fa fa-phone"></i><?php echo $contact_phone ?></p>
+								<p><i class="fa fa-envelope"></i><?php echo $contact_mail ?></p>
 							</address>
 						</div>
 			
