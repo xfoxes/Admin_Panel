@@ -444,8 +444,8 @@ if(isset($_GET['ud']))
                         <h1 class="page-header">Main Page Settings</h1>
                         <div> <?php echo $uyari; ?></div>
                     </div>
-                    <form method="POST" action="#">
-
+                    <form method="POST" action="#titleset">
+                    <section id="titleset">
                     <div class="col-lg-12">
                         <h2 class="page-header">Title Set</h2>
                         <div class="input-group custom-search-form">
@@ -455,15 +455,19 @@ if(isset($_GET['ud']))
                                 <button class="btn btn-default" type="submit" name="title-update" id="title-update">
                                     <b>Update</b>
                                 </button>
+								
                             </span>
                             </div>
                             </form>
+							</section>
                          <br>
+						 <section id="descset">
 						 <h2 class="page-header">Description Set</h2>
-                         <form method="POST" action="#" enctype="multipart/form-data">
+                         <form method="POST" action="#descset">
                         <textarea name="editor" class="ckeditor"><?php echo $description; ?></textarea> <br>
                         <button class="btn btn-default" type="sumbit" name="desp-update" id="desp-update"><b>Update</b></button> <br> <br>
                         </form>
+						</section>
 						 <h2 class="page-header">Profile-Picture Set</h2>
 						 <img src="../image/upload/<?php echo $resimpp?>" width=100px; height=100px; />
 						<form method="POST" action="#" enctype="multipart/form-data">
