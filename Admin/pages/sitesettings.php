@@ -7,6 +7,7 @@ $uyari = "";
 $baslik ="";
 
 
+
 if(isset($_POST["about2_pp_u"]))
 {
 
@@ -214,14 +215,119 @@ if(isset($_POST["contact_mainmail_u"]))
 
 
 
-if(isset($_POST["menu-add"]))
+
+//____________,Project
+
+
+if(isset($_GET['pd']))
 {
-	$menutitletxt = $_POST["menu-title"];
-	$menulinktxt = $_POST["menu-link"];
+	$delete = $db->exec("DELETE FROM sitepageproject WHERE id = ".$_GET['pd']);
+    
+}
+if(isset($_POST["project-add"]))
+{
+
+         copy($_FILES['project-pp']['tmp_name'] , "../image/upload/" . $_FILES['project-pp']['name']); 
+         
+         $resim = "../image/upload/" . $_FILES['project-pp']['name'];
+         
+    
+        $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
+              
+			  $sql = "INSERT INTO sitepageproject (Project_Title,Project_Art,Project_PP,Project_Link) VALUES (:ptitle,:particle,:projectpp,:plink)";
+$query = $db->prepare($sql);
+$sonuc = $query->execute(array(':ptitle'=>$_POST["project-title"],':particle'=>$_POST["project-article"],':projectpp'=>$_FILES['project-pp']["name"],':plink'=>$_POST["project-link"]));
+          
 }
 
-
 //------POST İŞLEMLERİ -------------------- BİTİŞ -------------------
+if(isset($_POST["services-add"]))
+{
+
+         copy($_FILES['services-pp']['tmp_name'] , "../image/upload/" . $_FILES['services-pp']['name']); 
+         
+         $resim = "../image/upload/" . $_FILES['services-pp']['name'];
+         
+    
+        $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
+              
+			  $sql = "INSERT INTO sitepageservices (Services_Title,Services_Desc,Services_PP) VALUES (:setitle,:sdesc,:servicespp)";
+$query = $db->prepare($sql);
+$sonuc = $query->execute(array(':setitle'=>$_POST["services-title"],':sdesc'=>$_POST["services-desc"],':servicespp'=>$_FILES['services-pp']["name"]));
+          
+}
+
+if(isset($_GET['sed']))
+{
+	$delete = $db->exec("DELETE FROM sitepageservices WHERE id = ".$_GET['sed']);
+    
+}
+//_______________-SLİDER EKLEME
+if(isset($_POST["slider_add"]))
+{
+
+         copy($_FILES['slider_pp']['tmp_name'] , "../image/upload/" . $_FILES['slider_pp']['name']); 
+         
+         $resim = "../image/upload/" . $_FILES['slider_pp']['name'];
+         
+    
+        $uyari = "<div class='alert alert-success'>Resim Yükleme Başarılı</div>"; 
+              
+			  $sql = "INSERT INTO sitepageslider (Slider_Title,Slider_Desc,Slider_PP) VALUES (:stitle,:desc,:sliderpp)";
+$query = $db->prepare($sql);
+$sonuc = $query->execute(array(':stitle'=>$_POST["slider_title"],':desc'=>$_POST["slider_desc"],':sliderpp'=>$_FILES['slider_pp']["name"]));
+          
+}
+if(isset($_GET['ssd']))
+{
+	$delete = $db->exec("DELETE FROM sitepageslider WHERE id = ".$_GET['ssd']);
+    
+}
+
+//-------MENU SİLME VE GÜNCELLEME VE EKLEME İşlemleri
+if(isset($_POST["menu-add"]))
+{
+	
+	$sql = "INSERT INTO sitepagemenu (Menu_Title,Menu_Link) VALUES (:title,:link)";
+$query = $db->prepare($sql);
+$sonuc = $query->execute(array(':title'=>$_POST["menu-title"],':link'=>$_POST["menu-link"]));
+}
+
+if(isset($_GET['sd']))
+{
+	$delete = $db->exec("DELETE FROM sitepagemenu WHERE id = ".$_GET['sd']);
+ 
+    
+}
+if(isset($_GET['ud']))
+{
+	$upid = $_GET['ud'];
+	
+	$query = $db->query("select * from sitepagemenu WHERE id = ".$_GET['ud'], PDO::FETCH_ASSOC);
+                          if($query->rowCount()){
+                            foreach ($query as $row) {
+                                $btntitle = $row["Menu_Title"];
+                                $btnlink = $row["Menu_Link"];						
+                            }
+	
+						  }
+}
+if(isset($_POST["menu-update-u"]))
+{
+	$btntitle = $_POST["menu-title"];
+	$btnlink = $_POST["menu-link"];
+	$upid = $_GET['ud'];
+	
+	$sql = "UPDATE sitepagemenu SET Menu_Title=?,Menu_Link=?  WHERE id=".$upid;
+                          $query = $db->prepare($sql);
+                          $sonuc = $query->execute(array($btntitle,$btnlink));
+	
+}
+//_______________________
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -406,16 +512,41 @@ if(isset($_POST["menu-add"]))
                                             <th>Menu Delete</th>
                                             <th>Menu Update</th>                                        
                                         </tr>
+										<?php 
+										
+										$query = $db->query("select * from sitepagemenu", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      $ButtonID = $row["id"];
+                                      $ButtonName = $row["Menu_Title"];
+								      $ButtonLink = $row["Menu_Link"];
+									  ?>
+									  <tr>
+									        <td><?php echo $ButtonID ?></td>
+                                            <td><?php echo $ButtonName ?></td>
+                                            <td><?php echo $ButtonLink ?></td>
+											<td><a href="?sd=<?php echo $ButtonID ?>" />Buton Delete</td>
+											<td><a href="?ud=<?php echo $ButtonID ?>" />Buton Update</td>
+											</tr>
+							<?php	
+                            }
+							
+							                
+                                            
+											 
+                          }
+						  ?>
 										<tr>
-						  <td>1</td>
+						  <td><?php echo @$upid ?></td>
 						  <form method="POST" action="#">
-						  <td><input name="menu-title-u" type="text" class="form-control" value=""></td>
-						  <td><input name="menu_link-u" type="text" class="form-control" value=""></td>
+						  <td><input name="menu-title" type="text" class="form-control" value="<?php echo @$btntitle ?>"></td>
+						  <td><input name="menu-link" type="text" class="form-control" value="<?php echo @$btnlink ?>"></td>
 						  <td><input type="submit" class="btn btn-primary" name="menu-update-u" value="Update" id="menu-update-u"></td>
 						  </form>
 						  </tr>
                                     </thead>
-                                    <tbody>   
+                                    <tbody>
+									
                                         </tr>
                                     </tbody>
                                 </table>
@@ -424,13 +555,15 @@ if(isset($_POST["menu-add"]))
                         </div>
                         <!-- /.panel-body -->
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Slider Add</h2>
+						 <form method="POST" action="#" enctype="multipart/form-data">
                                 <h3>Slider Title</h3>
-                                <input type="text" name="title" class="form-control" placeholder="">
+                                <input type="text" name="slider_title" class="form-control" placeholder="">
                                 <h3>Slider Description</h3>
-                                <input type="text" name="title" class="form-control" placeholder=""> 
+                                <input type="text" name="slider_desc" class="form-control" placeholder=""> 
                                 <h3>Slider İmage</h3>
-                                <input type="file" name=""><br>
-                                <input type="submit" class="btn btn-primary" name="">
+                                <input type="file" name="slider_pp"><br>
+                                <input type="submit" class="btn btn-primary" name="slider_add" value="Add">
+								</form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Slider Update & Delete</h2>
                                 <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -443,9 +576,34 @@ if(isset($_POST["menu-add"]))
                                             <th>Slider Description</th>
                                             <th>Slider İmage</th>
                                             <th>Slider Delete</th>
-                                            <th>Slider Update</th>
                                             
                                         </tr>
+										<?php 
+										
+										$query = $db->query("select * from sitepageslider", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+                                      $SliderID = $row["id"];
+                                      $Slidertitle = $row["Slider_Title"];
+								      $SliderDesc = $row["Slider_Desc"];
+									  $SliderPP = $row["Slider_PP"];
+									  ?>
+									  <tr>
+									        <td><?php echo $SliderID ?></td>
+                                            <td><?php echo $Slidertitle ?></td>
+                                            <td><?php echo $SliderDesc ?></td>
+											<td><img width=200 height=50 src="../image/upload/<?php echo $SliderPP?>" /></td>
+											<td><a href="?ssd=<?php echo $SliderID ?>" />Buton Delete</td>
+											</tr>
+							<?php	
+                            }
+							
+							                
+                                            
+											 
+                          }
+						  ?>
+										
                                     </thead>
                                     <tbody>   
                                         </tr>
@@ -555,17 +713,18 @@ if(isset($_POST["menu-add"]))
                                  </button>
 								 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Section Services Add</h2>
-                                
+                                <form method="POST" action="#" enctype="multipart/form-data">
                                 <h3 class="page-header">Services İmage</h3>
                                 
-                                <input type="file" name="">
+                                <input type="file" name="services-pp">
                                 <h3>Services Title</h3>
-                                <input type="text" name="title" class="form-control" placeholder="">
+                                <input type="text" name="services-title" class="form-control" placeholder="">
                                 <h3>Services Description</h3>
-                                <textarea class="ckeditor" name="editor"></textarea> <br>
-                                <button class="btn btn-primary" type="submit" name="article2-update" id="title-update">
+                                <textarea class="ckeditor" name="services-desc"></textarea> <br>
+                                <button class="btn btn-primary" type="submit" name="services-add" id="services-add">
                                  <b>Update</b>
                                  </button>
+								 </form>
 
 
 						<h3 class="page-header">Section Services Update & Delete</h3>
@@ -580,12 +739,33 @@ if(isset($_POST["menu-add"]))
                                             <th>Services Description</th>
                                             <th>Services İmage</th>
                                             <th>Services Delete</th>
-                                            <th>Services Update</th>
+                                            
                                             
                                         </tr>
                                     </thead>
+									<?php 
+										
+										$query = $db->query("select * from sitepageservices", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+									  ?>
+									  <tr>
+									        <td><?php echo $row["id"] ?></td>
+                                            <td><?php echo $row["Services_Title"] ?></td>
+                                            <td><?php echo $row["Services_Desc"] ?></td>
+											<td><img width=100 src="../image/upload/<?php echo $row["Services_PP"]?>" /></td>
+											<td><a href="?sed=<?php echo $row["id"] ?>" />Buton Delete</td>
+											</tr>
+							<?php	
+                            }
+							
+							                
+                                            
+											 
+                          }
+						  ?>
                                     <tbody>   
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -616,16 +796,18 @@ if(isset($_POST["menu-add"]))
 								 </form>
 						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Project Add</h2>
                         <h3 class="page-header">Project-Title</h3>
-                            <input type="text" name="title" class="form-control" placeholder="">
+						<form method="POST" action="#" enctype="multipart/form-data">
+                            <input type="text" name="project-title" class="form-control" placeholder="">
                         <h3 class="page-header">Project-Article</h3>
-                        <textarea class="ckeditor" name="editor"></textarea> <br>
+                        <textarea class="ckeditor" name="project-article"></textarea> <br>
                         <h3 class="page-header">Project-İmage</h3>
-                        <input type="file" name="">
+                        <input type="file" name="project-pp">
                         <h3 class="page-header">Project-link</h3>
-                            <input type="text" name="title" class="form-control" placeholder=""> <br>
-                            <button class="btn btn-primary" type="submit" name="article2-update" id="title-update">
+                            <input type="text" name="project-link" class="form-control" placeholder=""> <br>
+                            <button class="btn btn-primary" type="submit" name="project-add" id="project-add">
                                  <b>Update</b>
                                  </button>
+					    </form>
 
 
                                 
@@ -643,10 +825,32 @@ if(isset($_POST["menu-add"]))
                                             <th>Project İmage</th>
                                             <th>Project Link</th>
                                             <th>Project Delete</th>
-                                            <th>Project Update</th>
+                                            
                                             
                                         </tr>
                                     </thead>
+									<?php 
+										
+										$query = $db->query("select * from sitepageproject", PDO::FETCH_ASSOC);
+                                       if($query->rowCount()){
+                                      foreach ($query as $row) {
+									  ?>
+									  <tr>
+									        <td><?php echo $row["id"] ?></td>
+                                            <td><?php echo $row["Project_Title"] ?></td>
+                                            <td><?php echo $row["Project_Art"] ?></td>
+											<td><img width=100 src="../image/upload/<?php echo $row["Project_PP"]?>" /></td>
+											<td><?php echo $row["Project_Link"] ?></td>
+											<td><a href="?pd=<?php echo $row["id"] ?>" />Buton Delete</td>
+											</tr>
+							<?php	
+                            }
+							
+							                
+                                            
+											 
+                          }
+						  ?>
                                     <tbody>   
                                         </tr>
                                     </tbody>
