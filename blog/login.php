@@ -102,19 +102,16 @@
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="#">Üye Ol</a></h2>
-										<p>Aşağıdaki üye formundan üye olabilirsiniz</p>
+										<h2><a href="#">Giriş Yap</a></h2>
+										
 									</div>
 									
 								</header>
 								<form action="#" method="POST">
-								<input  type="text" name="name" placeholder="Adınız" required="required"><br>
-								<input  type="text" name="surname" placeholder="Soyadınız" required="required"><br>
-								<input  type="email" name="email" placeholder="E-mail" required="required"><br>
-								<input  type="text" name="user-name" placeholder="Kullanıcı Adı" required="required"><br>
+								<input  type="text" name="email" placeholder="Email & Kullanıcı Adı" required="required"><br>
 								<input  type="password" name="password" placeholder="Şifre" required="required"><br>
-								<input  type="password" name="password" placeholder="Tekrar Şifre" required="required"><br>
-								<button type="submit" class="button big fit">Üye ol</button>
+								
+								<button type="submit" class="button big fit">Giriş yap</button>
 								</form>
 								
 							</article>
