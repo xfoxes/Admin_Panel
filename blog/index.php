@@ -103,12 +103,21 @@
 
 								<?php 
 										
+										$sayfa = "";
+										$sayfa = @$_GET["p"];
+										if(empty($sayfa) || !is_numeric($sayfa)){
+											$sayfa = 1;
+										}
+										$kacar = 5;
+										$ksayisi = @mysqli_num_rows(mysql_query("select * from blogyazilar"));
+										$ssayisi=ceil($ksayisi/$kacar);
+										$nerden = ($sayfa*$kacar)-$kacar;
+
 										
-										
-										$sql = "select blogyazilar.*, blogadmin.Username,blogadmin.Admin_PP , blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit 0,5";
+										$sql = "select blogyazilar.*, blogadmin.Username,blogadmin.Admin_PP , blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit $nerden,$kacar";
 										$query = mysqli_query($db,$sql);
 										 while( $row = mysqli_fetch_array( $query,MYSQLI_ASSOC ) ) {
-											 
+											 $id = $row['id'];
 											 $kisayazi = substr($row["Article_Desc"],0,300);
 											$sorgu ="SELECT * from blogcomments where blogcomments.yazi_id=".$row["id"];
 										 
@@ -117,11 +126,7 @@
 
 										
 									  ?>
-									  <?php 
-
-										 
-								
-                                       ?>
+									 
 									  <article class="post">
 								<header>
 									<div class="title">
@@ -144,14 +149,16 @@
 									</ul>
 								</footer>
 							</article>
+
 							<?php	
+
+
                             }
-							
-							                
-                                            
-											 
-                          
-						  ?>
+
+
+              					
+			
+					  ?>
 
 
 
@@ -476,12 +483,38 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 						-->
 
 						<!-- Pagination -->
+
 							<ul class="actions pagination">
-								<li><a href="" class="disabled button big previous">Previous Page</a></li>
-								<li><a href="#" class="button big next">Next Page</a></li>
+
+								
+
+							<?php
+							
+
+							if($sayfa != $ssayisi)
+							{ 
+							echo '<li><a href="index.php?p='.($sayfa-1).'" class="button big previous">Önceki</a></li>'; 
+							echo '<li><a href="index.php?p='.($sayfa+1).'" class="button big next">Sonraki</a></li>'; 
+							}
+							 
+
+
+
+
+							 ?>
+
 							</ul>
 
+
+
+
+
+
+
+
 					</div>
+					
+					<!--  buraya gel-->
 
 				<!-- Sidebar -->
 					<section id="sidebar">
