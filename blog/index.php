@@ -1,3 +1,4 @@
+<?php include "connect_mysql.php"; ?>
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -101,39 +102,44 @@
 
 
 								<?php 
-										include "connect_mysql.php";
 										
 										
-										$sql = "select blogyazilar.Article_Title, blogadmin.Username , blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit 0,5";
+										
+										$sql = "select blogyazilar.*, blogadmin.Username,blogadmin.Admin_PP , blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit 0,5";
 										$query = mysqli_query($db,$sql);
 										 while( $row = mysqli_fetch_array( $query,MYSQLI_ASSOC ) ) {
-      
-   
+											 
+											 $kisayazi = substr($row["Article_Desc"],0,300);
 
 
 										
 									  ?>
+									  <?php 
+
+                                $sorgu ="SELECT * from blogcomments";
+								$result = $db->query($sorgu);
+								$count = $result->num_rows;
+								
+                                       ?>
 									  <article class="post">
 								<header>
 									<div class="title">
 										<h2><a href="#"><?php echo $row["Article_Title"]; ?></a></h2>
-										<p></p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01"></time>
-										<a href="#" class="author"><span class="name"><?php echo $row["Username"] ?></span><img src="" alt="" /></a>
+										<time class="published" datetime="2015-11-01"><?php echo $row["Share_Date"]; ?></time>
+										<a href="#" class="author"><span class="name"><?php echo $row["Username"] ?></span><img src="../Admin/image/upload/<?php echo $row["Admin_PP"]; ?>" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="" alt="" /></a>
-								<p></p>
+								<a href="#" class="image featured"><img height=300 src="../Admin/image/upload/<?php echo $row["Article_PP"]; ?>" alt="" /></a>
+								<p><?php  echo $kisayazi." . . ." ?></p>
 								<footer>
 									<ul class="actions">
 										<li><a href="#" class="button big">Devamını Oku</a></li>
 									</ul>
 									<ul class="stats">
 										<li><a href="#"><?php echo $row["Category_Title"] ?></a></li>
-										<li><a href="#" class="icon fa-heart">28</a></li>
-										<li><a href="#" class="icon fa-comment">128</a></li>
+										<li><a href="#" class="icon fa-comment"><?php echo $count ?></a></li>
 									</ul>
 								</footer>
 							</article>
