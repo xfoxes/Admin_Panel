@@ -101,10 +101,10 @@
 
 
 								<?php 
-										include "../Admin/pages/connect_mysql.php";
+										include "connect_mysql.php";
 										
 										
-										$sql = "select blogyazilar.Article_Title, blogadmin.Username FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id";
+										$sql = "select blogyazilar.Article_Title, blogadmin.Username , blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit 0,5";
 										$query = mysqli_query($db,$sql);
 										 while( $row = mysqli_fetch_array( $query,MYSQLI_ASSOC ) ) {
       
@@ -121,7 +121,7 @@
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2015-11-01"></time>
-										<a href="#" class="author"><span class="name"></span><img src="" alt="" /></a>
+										<a href="#" class="author"><span class="name"><?php echo $row["Username"] ?></span><img src="" alt="" /></a>
 									</div>
 								</header>
 								<a href="#" class="image featured"><img src="" alt="" /></a>
@@ -131,7 +131,7 @@
 										<li><a href="#" class="button big">Devamını Oku</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="#"></a></li>
+										<li><a href="#"><?php echo $row["Category_Title"] ?></a></li>
 										<li><a href="#" class="icon fa-heart">28</a></li>
 										<li><a href="#" class="icon fa-comment">128</a></li>
 									</ul>
