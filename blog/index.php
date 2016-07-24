@@ -110,15 +110,16 @@
 										 while( $row = mysqli_fetch_array( $query,MYSQLI_ASSOC ) ) {
 											 
 											 $kisayazi = substr($row["Article_Desc"],0,300);
-
+											$sorgu ="SELECT * from blogcomments where blogcomments.yazi_id=".$row["id"];
+										 
+								$result = $db->query($sorgu);
+								$count = $result->num_rows;
 
 										
 									  ?>
 									  <?php 
 
-                                $sorgu ="SELECT * from blogcomments";
-								$result = $db->query($sorgu);
-								$count = $result->num_rows;
+										 
 								
                                        ?>
 									  <article class="post">
