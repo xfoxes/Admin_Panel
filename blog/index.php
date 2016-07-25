@@ -22,22 +22,20 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Future Imperfect</a></h1>
+						<h1><a href="index.php">Onat Aktaş</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
+								<li><a href="index.php">Anasayfa</a></li>
+								<li><a href="#">Hakkımda</a></li>
+								<li><a href="#">İletişim</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
 							<ul>
 								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
+									<a class="fa-search" href="#search">Arama</a>
 									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
+										<input type="text" name="query" placeholder="Arama" />
 									</form>
 								</li>
 								<li class="menu">
@@ -140,18 +138,18 @@
 									  <article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="#"><?php echo $row["Article_Title"]; ?></a></h2>
+										<h2><a href="yazi.php?py=<?php echo $row["id"] ?>"><?php echo $row["Article_Title"]; ?></a></h2>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2015-11-01"><?php echo $row["Share_Date"]; ?></time>
 										<a href="#" class="author"><span class="name"><?php echo $row["Username"] ?></span><img src="../Admin/image/upload/<?php echo $row["Admin_PP"]; ?>" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img height=300 src="../Admin/image/upload/<?php echo $row["Article_PP"]; ?>" alt="" /></a>
+								<a href="yazi.php?py=<?php echo $row["id"] ?>" class="image featured"><img height=300 src="../Admin/image/upload/<?php echo $row["Article_PP"]; ?>" alt="" /></a>
 								<p><?php  echo $kisayazi." . . ." ?></p>
 								<footer>
 									<ul class="actions">
-										<li><a href="#" class="button big">Devamını Oku</a></li>
+										<li><a href="yazi.php?py=<?php echo $row["id"] ?>" class="button big">Devamını Oku</a></li>
 									</ul>
 									<ul class="stats">
 										<li><a href="#"><?php echo $row["Category_Title"] ?></a></li>
@@ -206,8 +204,8 @@
 							<section id="intro">
 								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
 								<header>
-									<h2>Future Imperfect</h2>
-									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+									<h2>Onat Aktaş Blog</h2>
+									<p>Yazılım ve daha fazlası ...</p>
 								</header>
 							</section>
 
