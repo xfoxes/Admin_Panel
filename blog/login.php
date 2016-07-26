@@ -134,6 +134,8 @@ ob_start();
 										if(mysql_num_rows($sql_check)){
 											
 											
+											
+    										$_SESSİON["LoginCont"] = "1";
     										$_SESSİON["Userid"] = $user_id;
     										header("Location:../blog/index.php");	
 										}
