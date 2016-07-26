@@ -1,5 +1,5 @@
 <?php 
-
+$ensonsayi="";
 $yaziid;
 $hatarecaptcha="";
 session_start();
@@ -23,6 +23,24 @@ if(isset($_POST["YorumYap"]))
 		$hatarecaptcha = "* Yorum yazabilmek için robot doğrulamasını yapmalısınız.";
 		
 	}
+}
+
+$sqlview = "SELECT * FROM blogyazilar WHERE blogyazilar.id=".$yaziid;
+										$queryview = mysqli_query($db,$sqlview);
+										 while( $rowview = mysqli_fetch_array( $queryview,MYSQLI_ASSOC ) ) {
+											 $ensonsayi = $rowview["Post_View"];
+										 }
+
+if(!isset($_SESSİON['hasVisited']))
+{
+	$_SESSİON['hasVisited'] = "yes";
+	$ensonsayi += 1;
+	
+}
+$sqlu = "UPDATE blogyazilar SET Post_View='".$ensonsayi."' WHERE id=".$yaziid;
+
+if ($db->query($sqlu) === TRUE) { 
+} else {
 }
 
 

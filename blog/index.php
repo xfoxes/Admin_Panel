@@ -1,4 +1,18 @@
-<?php include "connect_mysql.php"; ?>
+<?php include "connect_mysql.php";
+
+if(isset($_GET["query"]))
+{
+	$sqlarama = "select * from blogyazilar WHERE blogyazilar.Article_Title LIKE '%".$_GET["query"]."%'";
+										$queryarama = mysqli_query($db,$sqlarama);
+										 while( $rowarama = mysqli_fetch_array( $queryarama,MYSQLI_ASSOC ) ) {
+											 $git = $rowarama["id"];
+										 }
+										 header ("location:http://localhost/Onat Aktas-me/Admin_Panel/blog/yazi.php?py=".$git);
+	
+}
+
+
+ ?>
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -213,46 +227,23 @@
 							<section>
 							<h2>Popüler Konular</h2>
 								<div class="mini-posts">
-
+<?php
+                                        $sqlp = "select * From blogyazilar ORDER BY blogyazilar.Post_View DESC limit 0,5";
+										$queryp = mysqli_query($db,$sqlp);
+										 while( $rowp = mysqli_fetch_array( $queryp,MYSQLI_ASSOC ) ) {
+?>
 									<!-- Mini Post -->
 										<article class="mini-post">
 											<header>
-												<h3><a href="#">Vitae sed condimentum</a></h3>
-												<time class="published" datetime="2015-10-20">October 20, 2015</time>
-												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
+												<h3><a href="yazi.php?py=<?php echo $rowp["id"] ?>"><?php echo $rowp["Article_Title"] ?></a></h3>
+												<time class="published" datetime="2015-10-20"><?php echo $rowp["Share_Date"] ?></time>
+												
 											</header>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+											<a href="yazi.php?py=<?php echo $rowp["id"] ?>"  class="image"><img height=176 src="../Admin/image/upload/<?php echo $rowp["Article_PP"]; ?>" alt="" /></a>
 										</article>
-
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">Rutrum neque accumsan</a></h3>
-												<time class="published" datetime="2015-10-19">October 19, 2015</time>
-												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
-										</article>
-
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">Odio congue mattis</a></h3>
-												<time class="published" datetime="2015-10-18">October 18, 2015</time>
-												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
-										</article>
-
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">Enim nisl veroeros</a></h3>
-												<time class="published" datetime="2015-10-17">October 17, 2015</time>
-												<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-										</article>
+										<?php
+										 }
+										?>
 
 								</div>
 							</section>
