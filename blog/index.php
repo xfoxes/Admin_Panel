@@ -250,20 +250,20 @@ if(isset($_GET["query"]))
 
 						<!-- Posts List -->
 							<section>
-							<h2>Güncel Konular</h2>
+							<h2>Son Yorumlar</h2>
 								<ul class="posts">
 									<?php
-                                        $sqlc = "select * From blogyazilar,blogcomments ORDER BY blogcomments.Comment_Date DESC limit 0,5";
+                                        $sqlc = "SELECT * FROM blogcomments inner join bloguyeler on blogcomments.user_id = bloguyeler.id ORDER BY blogcomments.Comment_Date DESC limit 0,5";
 										$queryc = mysqli_query($db,$sqlc);
 										 while( $rowc = mysqli_fetch_array( $queryc,MYSQLI_ASSOC ) ) {
 ?>
 									<li>
 										<article>
 											<header>
-												<h3><a href="#"><?php echo $rowc["Article_Title"] ?></a></h3>
-												<time class="published" datetime="2015-10-06"><?php echo $rowc["Share_Date"] ?></time>
+												<h3><a href="yazi.php?py=<?php echo $rowc["yazi_id"] ?>"><?php echo $rowc["Comment"] ?></a></h3>
+												<time class="published" datetime="2015-10-06"><?php echo $rowc["Comment_Date"] ?></time>
 											</header>
-											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a>
+											<a href="#" class="image"><img src="../Admin/image/upload/<?php echo $rowc["User_PP"]; ?>" alt="" /></a>
 										</article>
 									</li>
 									<?php
