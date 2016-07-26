@@ -3,6 +3,8 @@ $ensonsayi="";
 $yaziid;
 $hatarecaptcha="";
 session_start();
+
+
 include "connect_mysql.php";
 if(isset($_GET["py"]))
 {
@@ -143,7 +145,7 @@ if ($db->query($sqlu) === TRUE) {
 						<?php 
 						$sql = "SELECT blogyazilar.* , blogadmin.*,blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id WHERE blogyazilar.id=".$yaziid;
 										$postquery = mysqli_query($db,$sql);
-										 while( $row = mysqli_fetch_array( $postquery,MYSQLI_ASSOC ) ) {
+										 while($row = mysqli_fetch_array( $postquery,MYSQLI_ASSOC)){
 											 
 											 ?>
 							<article class="post">
@@ -200,16 +202,16 @@ if ($db->query($sqlu) === TRUE) {
 							?>
 							<?php
 							
-							$_SESSİON['LoginCont']="a";
+							
 							$_SESSİON['Userid']=1;
 							$sqluser = "select * from bloguyeler WHERE bloguyeler.id=".$_SESSİON['Userid'];
 										$queryuser = mysqli_query($db,$sqluser);
-										 while( $rowuser = mysqli_fetch_array( $queryuser,MYSQLI_ASSOC ) ) {
+										 while( $rowuser = mysqli_fetch_array( $queryuser,MYSQLI_ASSOC)){
 											 $KullaniciAdi = $rowuser["Username"];
 											 $KullaniciResmi = $rowuser["User_PP"];
 										 }
 							
-							if($_SESSİON['LoginCont'] != null)
+							if(@$_SESSİON['LoginCont'] != null)
 							{
 							//GİRİŞ YAPILDIYSA
 							?>
@@ -245,6 +247,7 @@ if ($db->query($sqlu) === TRUE) {
 								
 								<?php
 							}
+
 							
 							?>
 							

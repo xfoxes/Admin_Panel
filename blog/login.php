@@ -1,3 +1,9 @@
+<?php include "../Admin/pages/connect_mysql.php";
+session_start();
+ob_start();
+
+?>
+
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -111,9 +117,42 @@
 								<input  type="text" name="email" placeholder="Email & Kullanıcı Adı" required="required"><br>
 								<input  type="password" name="password" placeholder="Şifre" required="required"><br>
 								
-								<button type="submit" class="button big fit">Giriş yap</button>
+								<button type="submit" name="login" class="button big fit">Giriş yap</button>
 								</form>
-								
+								<?php
+								    if(isset($_POST["login"])){
+										$email = @$_POST['email'];
+										$sifre = @$_POST['password'];
+ 
+                                        $sql_check = mysql_query("select id,Email,Password from bloguyeler where Email='".$email."' and Password='".$sifre."'") or die(mysql_error());
+
+                                        while( $row = @mysqli_fetch_array( $sql_check,MYSQLI_ASSOC)){
+											 $user_id = $row["id"];
+											 
+										}
+ 
+										if(mysql_num_rows($sql_check)){
+											
+											
+    										$_SESSİON["Userid"] = $user_id;
+    										header("Location:../blog/index.php");	
+										}
+										else {
+    										if($email=="" or $sifre=="") {
+        									echo "<div style='color:red; font-weight:bold;'>*Lütfen kullanıcı adı ya da şifreyi bos bırakmayınız</div>";
+    									}
+    									else {
+        									echo "<div style='color:red; font-weight:bold;'>*Kullanıcı adı veya şifre yanlış</div>";
+    									}
+									}
+ 
+										ob_end_flush();
+						
+										}
+										 	
+								?>
+
+								 
 							</article>
 
 

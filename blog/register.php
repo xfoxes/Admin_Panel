@@ -1,3 +1,69 @@
+<?php
+include "../Admin/pages/connect_mysql.php";?>
+<?php $hata = ""; ?>
+<?php
+
+$uyari = "";
+
+
+
+
+function kontrol1($tur)
+{
+    if($tur == "image/jpeg" || $tur == "image/jpg" || $tur == "image/png" || $tur == "image/gif" )
+    {
+        return true;        
+    }
+    else
+    {
+        return false;
+    }   
+}
+//------------------------------------------------------
+function kontrol2($boyut)
+{
+    if($boyut <=999999999999)
+    {
+        return true;
+        }
+    else
+    {
+        return false;
+    }
+}
+if(isset($_POST["register_u"])){
+if(kontrol1($_FILES['dosya']['type']))
+  {
+      if(kontrol2($_FILES['dosya']['size']))
+      {
+         // Kontoller tamam
+         
+         copy($_FILES['dosya']['tmp_name'] , "../Admin/image/upload/" . $_FILES['dosya']['name']); 
+         
+         $resim = "../Admin/image/upload/" . $_FILES['dosya']['name'];
+         
+    
+        $uyari = "<div style='color:green; font-weight:bold;' class='alert alert-success'></div>"; 
+              
+          
+          }
+          else
+          {
+         $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim boyutu 2Mb'dan büyük olamaz!<br></div>"; 
+              }
+      
+      
+      
+  }
+  else
+  {
+     $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim dosyası seçilmeli!<br></div>"; 
+  }
+}
+
+
+								?>
+
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -106,16 +172,59 @@
 										<p>Aşağıdaki üye formundan üye olabilirsiniz</p>
 									</div>
 									
+								
+
 								</header>
-								<form action="#" method="POST">
+								<form action="#hata" method="POST" enctype="multipart/form-data">
 								<input  type="text" name="name" placeholder="Adınız" required="required"><br>
 								<input  type="text" name="surname" placeholder="Soyadınız" required="required"><br>
 								<input  type="email" name="email" placeholder="E-mail" required="required"><br>
+								Bir profil resmi seçin <input 	name="dosya" id="dosya" type="file"><br><br>
 								<input  type="text" name="user-name" placeholder="Kullanıcı Adı" required="required"><br>
 								<input  type="password" name="password" placeholder="Şifre" required="required"><br>
-								<input  type="password" name="password" placeholder="Tekrar Şifre" required="required"><br>
-								<button type="submit" class="button big fit">Üye ol</button>
+								<input  type="password" name="re-password" placeholder="Tekrar Şifre" required="required"><br>
+								<button type="submit" name="register_u" id="register_u" class="button big fit">Üye ol</button>
+								
 								</form>
+								<?php
+								
+									if(isset($_POST["register_u"])){
+										$name = $_POST["name"];
+										$surname = $_POST["surname"];
+										$email = $_POST["email"];
+										$user_name = $_POST["user-name"];
+										$user_PP = $_FILES['dosya']['name'];
+										$password = $_POST["password"];
+										$re_password = $_POST["re-password"];
+
+										if($password == $re_password){
+											
+
+											$insert = mysql_query("INSERT INTO bloguyeler SET
+                                             Name  = '$name',
+                                             Surname = '$surname',
+                                             Email = '$email',
+                                             Username = '$user_name',
+                                             User_PP = '$user_PP',
+                                             Password  = '$password',
+                                             User_Status  = 0,
+                                             Cont_Key  = 123");
+                                             if ( $insert ){
+                                                  $last_id = mysql_insert_id();
+                                                  print "<div style='color:green; font-weight:bold;'>*Üye olma işlemi başarılı, sisteme giriş yapabilmek için lütfen e-mailinize gelen aktivasyon kodunu doğrulayınız.</div>";
+                                                  echo $uyari;
+                                             }
+
+
+										}
+										
+										else{
+											$hata = "<div id='hata' style='color:red; font-weight:bold;'>*Şifreler Uyuşmuyor, lütfen kontrol edip tekrar deneyiniz</div>";
+										}
+									}
+								?>
+
+								<?php echo $hata; ?>
 								
 							</article>
 
