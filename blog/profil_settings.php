@@ -77,14 +77,12 @@ if(kontrol1($_FILES['dosya']['type']))
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Future Imperfect</a></h1>
+						<h1><a href="index.php">Onat Aktaş</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
+								<li><a href="index.php">Anasayfa</a></li>
+								<li><a href="#">Hakkımda</a></li>
+								<li><a href="#">İletişim</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -121,24 +119,6 @@ if(kontrol1($_FILES['dosya']['type']))
 											<p>Feugiat tempus veroeros dolor</p>
 										</a>
 									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
 								</ul>
 							</section>
 
@@ -172,6 +152,7 @@ if(kontrol1($_FILES['dosya']['type']))
 											$v_email = $row["Email"];
 											$v_username = $row["Username"];
 											$v_password = $row["Password"];
+											$v_PP = $row["User_PP"];
 											
 								        }
 								    }
@@ -197,7 +178,15 @@ if(kontrol1($_FILES['dosya']['type']))
 									$re_username = $_POST["re_username"];
 									$re_password = $_POST["re_password"];
 									$try_re_password = $_POST["try_re_password"];
-									$re_PP = $_FILES['dosya']['name'];
+									if($_FILES['dosya']['name'] != null)
+									{
+										$re_PP = $_FILES['dosya']['name'];
+									}
+									else
+									{
+										$re_PP = $v_PP;
+									}
+									
 
 									if($re_password == $try_re_password){
 

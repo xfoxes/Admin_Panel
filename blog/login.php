@@ -27,14 +27,12 @@ ob_start();
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Future Imperfect</a></h1>
+						<h1><a href="index.php">Onat Aktaş</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
+								<li><a href="index.php">Anasayfa</a></li>
+								<li><a href="#">Hakkımda</a></li>
+								<li><a href="#">İletişim</a></li>
 							</ul>
 						</nav>
 						<nav class="main">

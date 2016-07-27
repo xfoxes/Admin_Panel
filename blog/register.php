@@ -1,7 +1,28 @@
 <?php
-include "../Admin/pages/connect_mysql.php";?>
-<?php $hata = ""; ?>
-<?php
+include "connect_mysql.php";
+
+
+session_start();
+if(isset($_GET["query"]))
+{
+	$sqlarama = "select * from blogyazilar WHERE blogyazilar.Article_Title LIKE '%".$_GET["query"]."%'";
+										$queryarama = mysqli_query($db,$sqlarama);
+										 while( $rowarama = mysqli_fetch_array( $queryarama,MYSQLI_ASSOC ) ) {
+											 $git = $rowarama["id"];
+										 }
+										 header ("location:http://localhost/Onat Aktas-me/Admin_Panel/blog/yazi.php?py=".$git);
+	
+}
+if(isset($_POST['cikisyap']))
+{
+	session_destroy();
+	header('Location: '.$_SERVER['REQUEST_URI']);
+}
+
+
+
+$hata = "";
+
 
 $uyari = "";
 
@@ -87,14 +108,12 @@ if(kontrol1($_FILES['dosya']['type']))
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Future Imperfect</a></h1>
+						<h1><a href="index.php">Onat Aktaş</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
+								<li><a href="index.php">Anasayfa</a></li>
+								<li><a href="#">Hakkımda</a></li>
+								<li><a href="#">İletişim</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -120,44 +139,71 @@ if(kontrol1($_FILES['dosya']['type']))
 								<form class="search" method="get" action="#">
 									<input type="text" name="query" placeholder="Search" />
 								</form>
+								
+							</section>
+							<section>
+							<ul class="actions vertical">
+							<?php 
+							if(@$_SESSION['LoginCont'] != null)
+							{
+							?>
+                             <!-- GİRİŞ YAPILDIĞI DURUM -->
+							
+							<center><li> Merhaba <?php echo $_SESSION['KullaniciAdi']; ?> </li></center>
+							<li><a href="profil_settings.php" class="button big fit">Ayarlar</a></li>
+							<form method="post" action="#">
+							<li>
+							<button class="button big fit" name="cikisyap" type="submit" >Çıkış Yap </button>
+							</li>
+							</form>
+						    <?php
+							}
+							
+							else{
+								?>
+								<!-- GİRİŞ YAPILMADIĞI DURUM -->
+									<li><a href="login.php" class="button big fit">Giriş Yap</a></li>
+									<li><a href="register.php" class="button big fit">Kayıt Ol</a></li>
+									
+								
+							<?php
+							
+							}
+							?>
+									
+								</ul>
 							</section>
 
 						<!-- Links -->
 							<section>
+							<header>
+							<div class="title">
+							<center><h2>Kategoriler</h2></center>
+							<hr>
+							</div>
+							</header>
+							
 								<ul class="links">
+								<?php
+								$sqlcategory = "select * from blogcategory";
+										$querycategory = mysqli_query($db,$sqlcategory);
+										 while( $rowcategory = mysqli_fetch_array( $querycategory,MYSQLI_ASSOC ) ) {
+								?>
 									<li>
 										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
+											<h3><?php echo $rowcategory["Category_Title"]?></h3>
+											<p><?php echo $rowcategory["Category_Desc"]?></p>
 										</a>
 									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
+									<?php
+										 }
+										 ?>
 								</ul>
 							</section>
 
 						<!-- Actions -->
-							<section>
-								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">Log In</a></li>
-								</ul>
-							</section>
+							
+
 
 					</section>
 
@@ -200,20 +246,8 @@ if(kontrol1($_FILES['dosya']['type']))
 										if($password == $re_password){
 											
 
-											$insert = mysql_query("INSERT INTO bloguyeler SET
-                                             Name  = '$name',
-                                             Surname = '$surname',
-                                             Email = '$email',
-                                             Username = '$user_name',
-                                             User_PP = '$user_PP',
-                                             Password  = '$password',
-                                             User_Status  = 0,
-                                             Cont_Key  = 123");
-                                             if ( $insert ){
-                                                  $last_id = mysql_insert_id();
-                                                  print "<div style='color:green; font-weight:bold;'>*Üye olma işlemi başarılı, sisteme giriş yapabilmek için lütfen e-mailinize gelen aktivasyon kodunu doğrulayınız.</div>";
-                                                  echo $uyari;
-                                             }
+										mysqli_query($db,"INSERT INTO bloguyeler (Name,Surname,Email,Username,User_PP,Password)
+               VALUES ('".$name."','".$surname."','".$email."','".$user_name."','".$user_PP."','".$password."')");
 
 
 										}
