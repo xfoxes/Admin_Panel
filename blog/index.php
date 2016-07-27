@@ -168,7 +168,7 @@ if(isset($_POST['cikisyap']))
 										$nerden = ($sayfa*$kacar)-$kacar;
 
 										
-										$sql = "select blogyazilar.*, blogadmin.Username,blogadmin.Admin_PP , blogcategory.Category_Title FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit $nerden,$kacar";
+										$sql = "select blogyazilar.*, blogadmin.Username,blogadmin.Admin_PP , blogcategory.Category_Title,blogcategory.id AS bid FROM blogyazilar inner join blogadmin ON blogyazilar.Admin_id = blogadmin.id inner join blogcategory ON blogyazilar.Category_id = blogcategory.id ORDER BY blogyazilar.id DESC limit $nerden,$kacar";
 										$query = mysqli_query($db,$sql);
 										 while( $row = mysqli_fetch_array( $query,MYSQLI_ASSOC ) ) {
 											
@@ -198,7 +198,7 @@ if(isset($_POST['cikisyap']))
 										<li><a href="yazi.php?py=<?php echo $row["id"] ?>" class="button big">Devamını Oku</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="#"><?php echo $row["Category_Title"] ?></a></li>
+										<li><a href="category.php?cs=<?php  echo $row["bid"]; ?>"><?php echo $row["Category_Title"] ?></a></li>
 										<li><a href="#" class="icon fa-comment"><?php echo $count ?></a></li>
 									</ul>
 								</footer>
