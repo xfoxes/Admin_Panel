@@ -123,9 +123,10 @@ if(isset($_POST['cikisyap']))
 								$sqlcategory = "select * from blogcategory";
 										$querycategory = mysqli_query($db,$sqlcategory);
 										 while( $rowcategory = mysqli_fetch_array( $querycategory,MYSQLI_ASSOC ) ) {
+										 	$category_id = $rowcategory["id"];
 								?>
 									<li>
-										<a href="#">
+										<a href="category.php?cs=<?php echo $category_id; ?>">
 											<h3><?php echo $rowcategory["Category_Title"]?></h3>
 											<p><?php echo $rowcategory["Category_Desc"]?></p>
 										</a>

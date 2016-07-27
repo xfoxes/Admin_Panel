@@ -147,23 +147,49 @@ if(isset($_GET["py"]))
 				<!-- Main -->
 					<section>
 					<article class="post">
+					<?php
+
+					$cs=$_GET["cs"];
+					
+					$sqlcb = "select * from blogcategory WHERE id=".$cs;
+          			$querycb = mysqli_query($db,$sqlcb);
+           			while( $rowcb = mysqli_fetch_array( $querycb,MYSQLI_ASSOC ) ) {
+            		  $baslik = $rowcb["Category_Title"];
+           			}
+
+					 ?>
 					<div class="title">
-										<h2><a href="#">Yazılım Kategorisi</a></h2>
+										<h2><a href="#">Kategori : <?php echo $baslik ?></a></h2>
 									</div>
 					</article>
-				<article class="post">
+				
+								
+								<?php
+									$cs=$_GET["cs"];
+					
+									$sqlcba = "select * from blogyazilar WHERE Category_id=".$cs;
+          							$querycba = mysqli_query($db,$sqlcba);
+           							while( $rowcba = mysqli_fetch_array( $querycba,MYSQLI_ASSOC ) ) {
+            		  				
+           			                
+								?>
+								<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="#">Başlık</a></h2>
+										<h2><a href="yazi.php?py=<?php echo $rowcba["id"]; ?>"><?php echo $rowcba["Article_Title"]; ?></a></h2>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">tarih</time>
-										<a href="#" class="author"><span class="name">yazar adı</span><img src="../Admin/image/upload/bg.jpg" alt="" /></a>
+										<time class="published" datetime="2015-11-01"><?php echo $rowcba["Share_Date"]; ?></time>
+										<a href="#" class="author"></a>
 									</div>
 								</header>
-								<span class="image featured"><img height=300 src="../Admin/image/upload/bg.jpg" alt="" /></span>
+
+								<a href="yazi.php?py=<?php echo $rowcba["id"]; ?>"><span  class="image featured"><img height=300 src="../Admin/image/upload/<?php echo $rowcba["Article_PP"]; ?>" alt="" /></span></a>
 								
 							</article>
+							<?php
+							}
+								?>
 					</section>
 				<!-- Footer -->
 					<section id="footer">
