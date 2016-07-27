@@ -1,5 +1,5 @@
 <?php include "connect_mysql.php";
-
+session_start();
 if(isset($_GET["query"]))
 {
 	$sqlarama = "select * from blogyazilar WHERE blogyazilar.Article_Title LIKE '%".$_GET["query"]."%'";
@@ -9,6 +9,11 @@ if(isset($_GET["query"]))
 										 }
 										 header ("location:http://localhost/Onat Aktas-me/Admin_Panel/blog/yazi.php?py=".$git);
 	
+}
+if(isset($_POST['cikisyap']))
+{
+	session_destroy();
+	header('Location: '.$_SERVER['REQUEST_URI']);
 }
 
 
@@ -46,6 +51,7 @@ if(isset($_GET["query"]))
 						</nav>
 						<nav class="main">
 							<ul>
+							
 								<li class="search">
 									<a class="fa-search" href="#search">Arama</a>
 									<form id="search" method="get" action="#">
@@ -56,6 +62,7 @@ if(isset($_GET["query"]))
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
 							</ul>
+							
 						</nav>
 					</header>
 
@@ -68,6 +75,38 @@ if(isset($_GET["query"]))
 									<input type="text" name="query" placeholder="Search" />
 								</form>
 								
+							</section>
+							<section>
+							<ul class="actions vertical">
+							<?php 
+							if(@$_SESSION['LoginCont'] != null)
+							{
+							?>
+                             <!-- GİRİŞ YAPILDIĞI DURUM -->
+							
+							<center><li> Merhaba <?php echo $_SESSION['KullaniciAdi']; ?> </li></center>
+							<li><a href="login.php" class="button big fit">Ayarlar</a></li>
+							<form method="post" action="#">
+							<li>
+							<button class="button big fit" name="cikisyap" type="submit" >Çıkış Yap </button>
+							</li>
+							</form>
+						    <?php
+							}
+							
+							else{
+								?>
+								<!-- GİRİŞ YAPILMADIĞI DURUM -->
+									<li><a href="login.php" class="button big fit">Giriş Yap</a></li>
+									<li><a href="register.php" class="button big fit">Kayıt Ol</a></li>
+									
+								
+							<?php
+							
+							}
+							?>
+									
+								</ul>
 							</section>
 
 						<!-- Links -->
@@ -98,15 +137,7 @@ if(isset($_GET["query"]))
 							</section>
 
 						<!-- Actions -->
-							<section>
 							
-								<ul class="actions vertical">
-								
-									<li><a href="login.php" class="button big fit">Giriş Yap</a></li>
-									
-									
-								</ul>
-							</section>
 
 					</section>
 

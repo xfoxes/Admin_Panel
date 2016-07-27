@@ -1,4 +1,4 @@
-<?php include "../Admin/pages/connect_mysql.php";
+<?php include "connect_mysql.php";
 session_start();
 ob_start();
 
@@ -114,43 +114,41 @@ ob_start();
 									
 								</header>
 								<form action="#" method="POST">
-								<input  type="text" name="email" placeholder="Email & Kullanıcı Adı" required="required"><br>
+								<input  type="text" name="email" placeholder="Email" required="required"><br>
 								<input  type="password" name="password" placeholder="Şifre" required="required"><br>
 								
 								<button type="submit" name="login" class="button big fit">Giriş yap</button>
 								</form>
 								<?php
 								    if(isset($_POST["login"])){
+										
 										$email = @$_POST['email'];
 										$sifre = @$_POST['password'];
- 
-                                        $sql_check = mysql_query("select id,Email,Password from bloguyeler where Email='".$email."' and Password='".$sifre."'") or die(mysql_error());
-
-                                        while( $row = @mysqli_fetch_array( $sql_check,MYSQLI_ASSOC)){
-											 $user_id = $row["id"];
-											 
-										}
- 
-										if(mysql_num_rows($sql_check)){
+										
+										$sqlk = "select * from bloguyeler where Email='".$email."' and Password='".$sifre."'	";
+										$queryk = mysqli_query($db,$sqlk);
+										 while( $rowk = mysqli_fetch_array( $queryk,MYSQLI_ASSOC ) ) {
+											  
+											$user_id = $rowk["id"];
+											$kul_ad = $rowk["Username"];
 											
-											
-											
-    										$_SESSİON["LoginCont"] = "1";
-    										$_SESSİON["Userid"] = $user_id;
-    										header("Location:../blog/index.php");	
-										}
-										else {
-    										if($email=="" or $sifre=="") {
-        									echo "<div style='color:red; font-weight:bold;'>*Lütfen kullanıcı adı ya da şifreyi bos bırakmayınız</div>";
-    									}
-    									else {
-        									echo "<div style='color:red; font-weight:bold;'>*Kullanıcı adı veya şifre yanlış</div>";
-    									}
+										 }
+										 if(@$user_id != null)
+										 {
+											$_SESSION['LoginCont'] = $user_id;
+											$_SESSION['KullaniciAdi'] = $kul_ad;
+											echo"<script> window.location='http://localhost/Onat Aktas-me/Admin_Panel/blog/'; </script>";
+										 }
+										 else
+											 {
+												 echo "<div style='color:red; font-weight:bold;'>*Kullanıcı adı veya şifre yanlış</div>";
+												 
+											 }
+										 
 									}
  
-										ob_end_flush();
-						
-										}
+                                       
+										
 										 	
 								?>
 

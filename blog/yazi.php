@@ -4,7 +4,6 @@ $yaziid;
 $hatarecaptcha="";
 session_start();
 
-
 include "connect_mysql.php";
 if(isset($_GET["py"]))
 {
@@ -203,16 +202,17 @@ if ($db->query($sqlu) === TRUE) {
 							<?php
 							
 							
-							$_SESSİON['Userid']=1;
-							$sqluser = "select * from bloguyeler WHERE bloguyeler.id=".$_SESSİON['Userid'];
+							
+							
+							
+							if(@$_SESSION['LoginCont'] != null)
+							{
+								$sqluser = "select * from bloguyeler WHERE bloguyeler.id=".$_SESSION['LoginCont'];
 										$queryuser = mysqli_query($db,$sqluser);
 										 while( $rowuser = mysqli_fetch_array( $queryuser,MYSQLI_ASSOC)){
 											 $KullaniciAdi = $rowuser["Username"];
 											 $KullaniciResmi = $rowuser["User_PP"];
 										 }
-							
-							if(@$_SESSİON['LoginCont'] != null)
-							{
 							//GİRİŞ YAPILDIYSA
 							?>
 							<header>
