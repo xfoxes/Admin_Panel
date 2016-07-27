@@ -1,3 +1,59 @@
+<?php
+session_start();
+include "../Admin/pages/connect.php";
+$uyari = "";
+function kontrol1($tur)
+{
+    if($tur == "image/jpeg" || $tur == "image/jpg" || $tur == "image/png" || $tur == "image/gif" )
+    {
+        return true;        
+    }
+    else
+    {
+        return false;
+    }   
+}
+//------------------------------------------------------
+function kontrol2($boyut)
+{
+    if($boyut <=999999999999)
+    {
+        return true;
+        }
+    else
+    {
+        return false;
+    }
+}
+if(isset($_POST["profil_settings_u"])){
+if(kontrol1($_FILES['dosya']['type']))
+  {
+      if(kontrol2($_FILES['dosya']['size']))
+      {
+         // Kontoller tamam
+         
+         copy($_FILES['dosya']['tmp_name'] , "../Admin/image/upload/" . $_FILES['dosya']['name']); 
+         $resim = "../Admin/image/upload/" . $_FILES['dosya']['name'];
+         $uyari = "<div style='color:green; font-weight:bold;' class='alert alert-success'></div>"; 
+              
+          
+      }
+      else
+      {
+         $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim boyutu 2Mb'dan büyük olamaz!<br></div>"; 
+      }
+     }
+  else
+  {
+     $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim dosyası seçilmeli!<br></div>"; 
+  }
+}
+?>
+
+
+
+
+
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -107,19 +163,63 @@
 									</div>
 									
 								</header>
-								<form action="#" method="POST">
-								<input  type="text" name="re_name" placeholder="İsmini Değiştir" ><br>
-								<input  type="text" name="re_surname" placeholder="Soyadını Değiştir" ><br>
-								<input  type="text" name="re_email" placeholder="Emailini Değiştir" ><br>
-								<input  type="text" name="re_username" placeholder="Kullanıcı Adını Değiştir" ><br>
-								<input  type="password" name="re_password" placeholder="Şifreni Değiştir" ><br>
-								<input  type="password" name="try_re_password" placeholder="Yeni Şifreni Tekrar Gir" ><br>
-								Profil Resmini Seçiniz : <input  type="file"  name="try_re_password"><br><br>
+								<?php
+									$query_user = $db->query("select * from bloguyeler", PDO::FETCH_ASSOC);
+                          			if($query_user->rowCount()){
+                            			foreach ($query_user as $row) {
+                                			$v_name = $row["Name"];
+                                			$v_surname = $row["Surname"];
+											$v_email = $row["Email"];
+											$v_username = $row["Username"];
+											$v_password = $row["Password"];
+											
+								        }
+								    }
+								?>
+								<form action="#" method="POST" enctype="multipart/form-data">
+								<input  type="text" name="re_name" value="<?php echo $v_name; ?>" placeholder="İsmini Değiştir" ><br>
+								<input  type="text" name="re_surname" value="<?php echo $v_surname; ?>" placeholder="Soyadını Değiştir" ><br>
+								<input  type="text" name="re_email" value="<?php echo $v_email; ?>" placeholder="Emailini Değiştir" ><br>
+								<input  type="text" name="re_username" value="<?php echo $v_username; ?>" placeholder="Kullanıcı Adını Değiştir" ><br>
+								<input  type="text" name="re_password" value="<?php echo $v_password; ?>" placeholder="Şifreni Değiştir" ><br>
+								<input  type="text" name="try_re_password" placeholder="Yeni Şifreni Tekrar Gir" ><br>
+								Profil Resmini Seçiniz : <input  type="file"  name="dosya" id="dosya"><br><br>
 								
-								<button type="submit" class="button big fit">Kaydet</button>
+								<button type="submit" name="profil_settings_u" class="button big fit">Kaydet</button>
 								</form>
-								
+								<?php
+								if(isset($_POST["profil_settings_u"])){
+
+									
+									$re_name = $_POST["re_name"];
+									$re_surname = $_POST["re_surname"];
+									$re_email = $_POST["re_email"];
+									$re_username = $_POST["re_username"];
+									$re_password = $_POST["re_password"];
+									$try_re_password = $_POST["try_re_password"];
+									$re_PP = $_FILES['dosya']['name'];
+
+									if($re_password == $try_re_password){
+
+									$sql = "UPDATE bloguyeler SET Name='$re_name', Surname='$re_surname', Email='$re_email', Username='$re_username', User_PP='$re_PP', Password='$re_password' WHERE id=".$_SESSION["LoginCont"];
+                         		    $query = $db->prepare($sql);
+                          			$sonuc = $query->execute(array($re_name,$re_surname,$re_email,$re_username,$re_PP,$re_password));
+
+                          			if($query){
+                          				echo"<div style='color:green; font-weight:bold;'>*Yeni profil bilgileriniz başarıyla güncellendi.</div>";
+                          			}
+                          			else{
+                          				echo "<div style='color:red; font-weight:bold;'>*Profil bilgilerini güncellerden bir hata meydana geldi.</div>";
+                          			}
+
+                                    }else{
+                                    	echo "<div style='color:red; font-weight:bold;'>*Şifreler uyuşmuyor</div>";
+                                    }
+
+								}
+							 ?>
 							</article>
+							
 
 
 							
