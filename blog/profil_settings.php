@@ -1,6 +1,17 @@
 <?php
+include "connect_mysql.php";
 session_start();
-include "../Admin/pages/connect.php";
+if(isset($_GET["query"]))
+{
+	$sqlarama = "select * from blogyazilar WHERE blogyazilar.Article_Title LIKE '%".$_GET["query"]."%'";
+										$queryarama = mysqli_query($db,$sqlarama);
+										 while( $rowarama = mysqli_fetch_array( $queryarama,MYSQLI_ASSOC ) ) {
+											 $git = $rowarama["id"];
+										 }
+										 header ("location:http://localhost/Onat Aktas-me/Admin_Panel/blog/yazi.php?py=".$git);
+	
+}
+
 $uyari = "";
 function kontrol1($tur)
 {
@@ -108,26 +119,71 @@ if(kontrol1($_FILES['dosya']['type']))
 								<form class="search" method="get" action="#">
 									<input type="text" name="query" placeholder="Search" />
 								</form>
+								
+							</section>
+							<section>
+							<ul class="actions vertical">
+							<?php 
+							if(@$_SESSION['LoginCont'] != null)
+							{
+							?>
+                             <!-- GİRİŞ YAPILDIĞI DURUM -->
+							
+							<center><li> Merhaba <?php echo $_SESSION['KullaniciAdi']; ?> </li></center>
+							<li><a href="profil_settings.php" class="button big fit">Ayarlar</a></li><br>
+							<form method="post" action="#">
+							<li>
+							<button class="button big fit" name="cikisyap" type="submit" >Çıkış Yap </button>
+							</li>
+							</form>
+						    <?php
+							}
+							
+							else{
+								?>
+								<!-- GİRİŞ YAPILMADIĞI DURUM -->
+									<li><a href="login.php" class="button big fit">Giriş Yap</a></li>
+									<li><a href="register.php" class="button big fit">Kayıt Ol</a></li>
+									
+								
+							<?php
+							
+							}
+							?>
+									
+								</ul>
 							</section>
 
 						<!-- Links -->
 							<section>
+							<header>
+							<div class="title">
+							<center><h2>Kategoriler</h2></center>
+							<hr>
+							</div>
+							</header>
+							
 								<ul class="links">
+								<?php
+								$sqlcategory = "select * from blogcategory";
+										$querycategory = mysqli_query($db,$sqlcategory);
+										 while( $rowcategory = mysqli_fetch_array( $querycategory,MYSQLI_ASSOC ) ) {
+								?>
 									<li>
 										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
+											<h3><?php echo $rowcategory["Category_Title"]?></h3>
+											<p><?php echo $rowcategory["Category_Desc"]?></p>
 										</a>
 									</li>
+									<?php
+										 }
+										 ?>
 								</ul>
 							</section>
 
 						<!-- Actions -->
-							<section>
-								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">Log In</a></li>
-								</ul>
-							</section>
+							
+
 
 					</section>
 
@@ -144,27 +200,32 @@ if(kontrol1($_FILES['dosya']['type']))
 									
 								</header>
 								<?php
-									$query_user = $db->query("select * from bloguyeler", PDO::FETCH_ASSOC);
-                          			if($query_user->rowCount()){
-                            			foreach ($query_user as $row) {
-                                			$v_name = $row["Name"];
-                                			$v_surname = $row["Surname"];
-											$v_email = $row["Email"];
-											$v_username = $row["Username"];
-											$v_password = $row["Password"];
-											$v_PP = $row["User_PP"];
-											
-								        }
-								    }
+									
+
+							$sqlarama = "select * from bloguyeler";
+          					$queryarama = mysqli_query($db,$sqlarama);
+           					while( $rowarama = mysqli_fetch_array( $queryarama,MYSQLI_ASSOC ) ) {
+           					 		$v_name = $rowarama["Name"];
+                                	$v_surname = $rowarama["Surname"];
+									$v_email = $rowarama["Email"];
+									$v_username = $rowarama["Username"];
+									$v_password = $rowarama["Password"];
+									$v_PP = $rowarama["User_PP"];
+           					}
+
+
+
+
+
 								?>
 								<form action="#" method="POST" enctype="multipart/form-data">
 								<input  type="text" name="re_name" value="<?php echo $v_name; ?>" placeholder="İsmini Değiştir" ><br>
 								<input  type="text" name="re_surname" value="<?php echo $v_surname; ?>" placeholder="Soyadını Değiştir" ><br>
 								<input  type="text" name="re_email" value="<?php echo $v_email; ?>" placeholder="Emailini Değiştir" ><br>
 								<input  type="text" name="re_username" value="<?php echo $v_username; ?>" placeholder="Kullanıcı Adını Değiştir" ><br>
-								<input  type="text" name="re_password" value="" placeholder="Şifrenizi giriniz" ><br>
-								<input  type="text" name="re_password" value="<?php echo $v_password; ?>" placeholder="Şifreni Değiştir" ><br>
-								<input  type="text" name="try_re_password" placeholder="Yeni Şifreni Tekrar Gir" ><br>
+								<input  type="password" name="enter_re_password" value="" placeholder="Şifrenizi giriniz" ><br>
+								<input  type="password" name="re_password" id="<?php echo $v_password; ?>" placeholder="Şifreni Değiştir" ><br>
+								<input  type="password" name="try_re_password" placeholder="Yeni Şifreni Tekrar Gir" ><br>
 								Profil Resmini Seçiniz : <input  type="file"  name="dosya" id="dosya"><br><br>
 								
 								<button type="submit" name="profil_settings_u" class="button big fit">Kaydet</button>
@@ -177,6 +238,7 @@ if(kontrol1($_FILES['dosya']['type']))
 									$re_surname = $_POST["re_surname"];
 									$re_email = $_POST["re_email"];
 									$re_username = $_POST["re_username"];
+									$enter_re_password = $_POST["enter_re_password"];
 									$re_password = $_POST["re_password"];
 									$try_re_password = $_POST["try_re_password"];
 									if($_FILES['dosya']['name'] != null)
@@ -189,22 +251,22 @@ if(kontrol1($_FILES['dosya']['type']))
 									}
 									
 
-									if($re_password == $try_re_password){
+									if(($re_password == $try_re_password) && ($enter_re_password == $v_password)){
 
-									$sql = "UPDATE bloguyeler SET Name='$re_name', Surname='$re_surname', Email='$re_email', Username='$re_username', User_PP='$re_PP', Password='$re_password' WHERE id=".$_SESSION["LoginCont"];
-                         		    $query = $db->prepare($sql);
-                          			$sonuc = $query->execute(array($re_name,$re_surname,$re_email,$re_username,$re_PP,$re_password));
+										$sql = "UPDATE bloguyeler SET Name='$re_name', Surname='$re_surname', Email='$re_email', Username='$re_username', User_PP='$re_PP', Password='$re_password' WHERE id=".$_SESSION["LoginCont"];
 
-                          			if($query){
-                          				echo"<div style='color:green; font-weight:bold;'>*Yeni profil bilgileriniz başarıyla güncellendi.</div>";
-                          			}
-                          			else{
-                          				echo "<div style='color:red; font-weight:bold;'>*Profil bilgilerini güncellerden bir hata meydana geldi.</div>";
-                          			}
+                               		if (mysqli_query($db, $sql)) {
+                                     echo "<div style='color:green; font-weight:bold;'>*Profil bilgileriniz başarıyla güncellendi.</div>";
+                                 	} else {
+                                     echo "<div style='color:red; font-weight:bold;'>*Profil bilgileriniz güncellenirken bir hata meydana geldi</div>".mysqli_error($db);
+                                 	}
+									}else{
+										echo"<div style='color:red; font-weight:bold;'>*Mevcut şifrenizi yanlış girdiniz, Tekrar deneyiniz</div>";
+									}
 
-                                    }else{
-                                    	echo "<div style='color:red; font-weight:bold;'>*Şifreler uyuşmuyor</div>";
-                                    }
+
+
+                                    
 
 								}
 							 ?>

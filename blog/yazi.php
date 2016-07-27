@@ -125,7 +125,7 @@ if ($db->query($sqlu) === TRUE) {
                              <!-- GİRİŞ YAPILDIĞI DURUM -->
 							
 							<center><li> Merhaba <?php echo $_SESSION['KullaniciAdi']; ?> </li></center>
-							<li><a href="profil_settings.php" class="button big fit">Ayarlar</a></li>
+							<li><a href="profil_settings.php" class="button big fit">Ayarlar</a></li><br>
 							<form method="post" action="#">
 							<li>
 							<button class="button big fit" name="cikisyap" type="submit" >Çıkış Yap </button>
