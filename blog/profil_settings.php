@@ -162,6 +162,7 @@ if(kontrol1($_FILES['dosya']['type']))
 								<input  type="text" name="re_surname" value="<?php echo $v_surname; ?>" placeholder="Soyadını Değiştir" ><br>
 								<input  type="text" name="re_email" value="<?php echo $v_email; ?>" placeholder="Emailini Değiştir" ><br>
 								<input  type="text" name="re_username" value="<?php echo $v_username; ?>" placeholder="Kullanıcı Adını Değiştir" ><br>
+								<input  type="text" name="re_password" value="" placeholder="Şifrenizi giriniz" ><br>
 								<input  type="text" name="re_password" value="<?php echo $v_password; ?>" placeholder="Şifreni Değiştir" ><br>
 								<input  type="text" name="try_re_password" placeholder="Yeni Şifreni Tekrar Gir" ><br>
 								Profil Resmini Seçiniz : <input  type="file"  name="dosya" id="dosya"><br><br>
