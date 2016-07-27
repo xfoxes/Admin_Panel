@@ -17,7 +17,8 @@ if(isset($_POST["YorumYap"]))
 	$data = json_decode($response);
 	if(isset($data->success) AND $data->success==true)
 	{
-		
+		mysqli_query($db,"INSERT INTO blogcomments (Comment,yazi_id,user_id)
+               VALUES ('".$_POST["yorumu"]."','".$_GET["py"]."',".@$_SESSION['LoginCont'].")");
 		$hatarecaptcha="";
 	}
 	else{
@@ -220,7 +221,7 @@ if ($db->query($sqlu) === TRUE) {
 									<form action="#" method="Post">
 									<section id="yorumyap">
 									<span style="color:red; font-weight:bold;"><?php echo $hatarecaptcha; ?></span>
-										<textarea style="resize:none;" rows="6" cols="0" placeholder="Ne düşünüyorsun ?"></textarea><br>
+										<textarea name="yorumu" style="resize:none;" rows="6" cols="0" placeholder="Ne düşünüyorsun ?"></textarea><br>
 										<button style="width:200px; float:right;" class="button big fit" name="YorumYap" id="YorumYap" >YORUM YAP</button>
 										<div class="g-recaptcha" data-sitekey="6LcTziUTAAAAAPRy5e2cU31J2DNqNMM4Thfro19o"></div>
 										
