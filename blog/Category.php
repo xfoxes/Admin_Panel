@@ -146,23 +146,24 @@ if(isset($_GET["py"]))
 
 				<!-- Main -->
 					<section>
-					
 					<article class="post">
-					<header>
+					<div class="title">
+										<h2><a href="#">Yazılım Kategorisi</a></h2>
+									</div>
+					</article>
+				<article class="post">
+								<header>
 									<div class="title">
-										<h2><a href="#">Yazılım	</a></h2>
-									</div>		
-							</header>
-					        <header>
-									<div class="title">
-									<img height=100px src="../Admin/image/upload/bg.jpg" />
-										<h3>PHP dersleri</h3>
-										
-									</div>	
-
-							</header>
-				    </article>
-
+										<h2><a href="#">Başlık</a></h2>
+									</div>
+									<div class="meta">
+										<time class="published" datetime="2015-11-01">tarih</time>
+										<a href="#" class="author"><span class="name">yazar adı</span><img src="../Admin/image/upload/bg.jpg" alt="" /></a>
+									</div>
+								</header>
+								<span class="image featured"><img height=300 src="../Admin/image/upload/bg.jpg" alt="" /></span>
+								
+							</article>
 					</section>
 				<!-- Footer -->
 					<section id="footer">
