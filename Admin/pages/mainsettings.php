@@ -427,6 +427,29 @@ if(isset($_GET['ud']))
                             <a href="sitesettings.php"><i class="fa fa-wrench  fa-fw"></i> Site Page Settings</a>
                             
                         </li>
+						<li>
+                            <a href=""><i class="fa fa-wrench  fa-fw"></i> Blog Page Settings</a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="">Yazı Ekleme</a>
+                                </li>
+                                <li>
+                                    <a href="#">Yazı Düzenleme ve Silme</a>
+                                </li>
+								<li>
+                                    <a href="#">Admin ekle</a>
+                                </li>
+								<li>
+                                    <a href="#">Üye Silme</a>
+                                </li>
+								<li>
+                                    <a href="#">Yorum Silme</a>
+                                </li>
+								<li>
+                                    <a href="#">Anasayfa Ayarları</a>
+                                </li>
+                            </ul>
+                        </li>
                        
                         </li>
                     </ul>
@@ -441,13 +464,14 @@ if(isset($_GET['ud']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Main Page Settings</h1>
+                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Main Page Settings</h1>
                         <div> <?php echo $uyari; ?></div>
                     </div>
                     <form method="POST" action="#titleset">
                     <section id="titleset">
                     <div class="col-lg-12">
-                        <h2 class="page-header">Title Set</h2>
+					<br>
+                        <h2 class="page-header" style="color:#bb0a1e; font-weight:bold;">Title Set</h2>
                         <div class="input-group custom-search-form">
                         
                                 <input type="text" name="title" class="form-control" placeholder="<?php echo $title; ?>">
@@ -455,21 +479,24 @@ if(isset($_GET['ud']))
                                 <button class="btn btn-default" type="submit" name="title-update" id="title-update">
                                     <b>Update</b>
                                 </button>
-								
+
                             </span>
                             </div>
                             </form>
 							</section>
-                         <br>
+                         
 						 <section id="descset">
-						 <h2 class="page-header">Description Set</h2>
+						 <br>
+						 <br>
+						 <h2 class="page-header" style="color:#bb0a1e; font-weight:bold;">Description Set</h2>
+						 
                          <form method="POST" action="#descset">
                         <textarea name="editor" class="ckeditor"><?php echo $description; ?></textarea> <br>
                         <button class="btn btn-default" type="sumbit" name="desp-update" id="desp-update"><b>Update</b></button> <br> <br>
                         </form>
 						</section>
             <section id="profil-pictures">
-						 <h2 class="page-header">Profile-Picture Set</h2>
+						 <h2 class="page-header" style="color:#bb0a1e; font-weight:bold;" >Profile-Picture Set</h2>
 						 <img src="../image/upload/<?php echo $resimpp?>" width=100px; height=100px; />
 						<form method="POST" action="#profil-pictures" enctype="multipart/form-data">
                         <input name="dosya" type="file"> <br>
@@ -477,7 +504,7 @@ if(isset($_GET['ud']))
 						</form>
             </section>
             <section id="background-picture">
-						<h2 class="page-header">BackGround-Picture Set</h2>
+						<h2 class="page-header" style="color:#bb0a1e; font-weight:bold;" >BackGround-Picture Set</h2>
 						 <img src="../image/upload/<?php echo $resimbgp?>" width=100px; height=100px; />
 						<form method="POST" action="#background-picture" enctype="multipart/form-data">
                         <input name="dosyabg" type="file"> <br>
@@ -485,7 +512,7 @@ if(isset($_GET['ud']))
 						</form>
             </section>
 	
-						 <h2 class="page-header">Button Add</h2>
+						 <h2 class="page-header" style="color:#bb0a1e; font-weight:bold;">Button Add</h2>
 						 <h3 class="page-header">Button title</h3>
 						 <section id="button-add">
 						 <form method="POST" action="#button-add">
@@ -565,8 +592,8 @@ if(isset($_GET['ud']))
 						 
              </section>
              <section id="social">
-						 <h2 class="page-header">Social Link Set</h2>
-						 <h2 class="page-header">Twitter</h2>
+						 <h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Social Link Set</h2>
+						 <h2  style="color:#bb0a1e; font-weight:bold;" class="page-header">Twitter</h2>
 
 						 <form method="POST" action="#social">
 						 <div class="input-group custom-search-form">
@@ -579,7 +606,7 @@ if(isset($_GET['ud']))
                             </div>
 							</form>
 
-						 <h2 class="page-header">Facebook</h2>
+						 <h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Facebook</h2>
 						 <form method="POST" action="#social">
 						 <div class="input-group custom-search-form">
                                 <input name="facebook" type="text" class="form-control" placeholder="Facebook_Link">
@@ -590,7 +617,7 @@ if(isset($_GET['ud']))
                             </span>
                             </div>
 							</form>
-						 <h2 class="page-header">Instagram</h2>
+						 <h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Instagram</h2>
 						 <form method="POST" action="#social">
 						 <div class="input-group custom-search-form">
                                 <input name="insta" type="text" class="form-control" placeholder="Instagram_Link">

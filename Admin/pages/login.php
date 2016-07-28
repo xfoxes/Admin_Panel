@@ -1,3 +1,50 @@
+<?php 
+include "../../blog/connect_mysql.php";
+session_start();
+
+if(isset($_POST["Login"]))
+{
+	$Adminmail= $_POST["email"];
+	$Adminpass= $_POST["password"];
+	@$remember = $_POST["remember"];
+	
+	
+	
+	$sqlk = "select * from blogadmin where Username='".$Adminmail."' and Password='".$Adminpass."'	";
+										$queryk = mysqli_query($db,$sqlk);
+										 while( $rowk = mysqli_fetch_array( $queryk,MYSQLI_ASSOC ) ) {
+											  
+											$Admin_id = $rowk["id"];
+											
+											
+										 }
+										 if(@$Admin_id != null)
+										 {
+											$_SESSION["LoginAdmin"] = "ON";
+											if(isset($_POST["remember"]))
+	{
+		setcookie("Admin",$Adminmail, time() + (60*60*720));
+		setcookie("Pass",$Adminpass, time() + (60*60*720));
+		setcookie("Check","checked",time() + (60*60*720));
+	}
+	else
+	{
+		setcookie("Admin",$Adminmail, time() - (60*60*720));
+		setcookie("Pass",$Adminpass, time() - (60*60*720));
+		setcookie("Check","checked",time() - (60*60*720));
+	}
+											echo"<script> window.location='index.php'; </script>";
+										 }
+										 else
+											 {
+												 $GirisHatasi ="<div style='color:red; font-weight:bold;'>*Kullanıcı adı veya şifre yanlış</div>";
+												 
+											 }
+											 
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,21 +89,22 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+					<?php echo @$GirisHatasi ?>
+                        <form action="#" method="POST">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" required="required" placeholder="Username" name="email" value="<?php echo @$_COOKIE['Admin']; ?>" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" required="required" placeholder="Password" value="<?php echo @$_COOKIE['Pass']; ?>" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" type="checkbox" value="on" <?php echo @$_COOKIE['Check']; ?>>Remember Me
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <input class="btn btn-lg btn-success btn-block" name="Login" type="submit" value="Login" >
                             </fieldset>
                         </form>
                     </div>

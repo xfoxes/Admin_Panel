@@ -7,7 +7,6 @@ $uyari = "";
 $baslik ="";
 
 
-
 if(isset($_POST["about2_pp_u"]))
 {
 
@@ -462,6 +461,29 @@ if(isset($_POST["menu-update-u"]))
 						<li>
                             <a href="sitesettings.php"><i class="fa fa-wrench  fa-fw"></i> Site Page Settings</a>
                             
+                        </li>
+						<li>
+                            <a href="blogsettings.php"><i class="fa fa-wrench  fa-fw"></i> Blog Page Settings</a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Yazı Ekleme</a>
+                                </li>
+                                <li>
+                                    <a href="#">Yazı Düzenleme ve Silme</a>
+                                </li>
+								<li>
+                                    <a href="#">Admin ekle</a>
+                                </li>
+								<li>
+                                    <a href="#">Üye Silme</a>
+                                </li>
+								<li>
+                                    <a href="#">Yorum Silme</a>
+                                </li>
+								<li>
+                                    <a href="#">Anasayfa Ayarları</a>
+                                </li>
+                            </ul>
                         </li>
                         
                     </ul>
