@@ -15,6 +15,7 @@ if(isset($_POST["Login"]))
 										 while( $rowk = mysqli_fetch_array( $queryk,MYSQLI_ASSOC ) ) {
 											  
 											$Admin_id = $rowk["id"];
+                                            $_SESSION["adminid"] = $Admin_id;
 											
 											
 										 }
