@@ -1,90 +1,25 @@
 <?php
 include "../../blog/connect_mysql.php";
 
-$uyari = "";
 
-
-
-
-function kontrol1($tur)
+if(isset($_GET['cgs']))
 {
-    if($tur == "image/jpeg" || $tur == "image/jpg" || $tur == "image/png" || $tur == "image/gif" )
-    {
-        return true;        
-    }
-    else
-    {
-        return false;
-    }   
-}
-//------------------------------------------------------
-function kontrol2($boyut)
-{
-    if($boyut <=999999999999)
-    {
-        return true;
-        }
-    else
-    {
-        return false;
-    }
-}
-if(isset($_POST["admin_ekle"])){
-if(kontrol1($_FILES['dosya']['type']))
-  {
-      if(kontrol2($_FILES['dosya']['size']))
-      {
-         // Kontoller tamam
-         
-         copy($_FILES['dosya']['tmp_name'] , "../image/upload/" . $_FILES['dosya']['name']); 
-         
-         $resim = "../image/upload/" . $_FILES['dosya']['name'];
-         
-    
-        $uyari = "<div style='color:green; font-weight:bold;' class='alert alert-success'></div>"; 
-              
-          
-          }
-          else
-          {
-         $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim boyutu 2Mb'dan büyük olamaz!<br></div>"; 
-              }
-      
-      
-      
-  }
-  else
-  {
-     $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim dosyası seçilmeli!<br></div>"; 
-  }
-}
-
-
-if(isset($_POST["admin_ekle"])){
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $admin_PP = $_FILES['dosya']['name'];
-
-    
-mysqli_query($db,$sql="INSERT INTO blogadmin (Username,Password,Admin_PP)
-               VALUES ('".$username."','".$password."','".$admin_PP."')");
-
-if($sql){
-    $mesaj = "<div style='color:green; font-weight:bold;'>*Admin başarıyla Eklendi</div>";
-}else{
-    $mesaj="<div style='color:red; font-weight:bold;'>*Admin eklenirken bir hata meydana geldi</div>";
-}
-    
-}
-
-if(isset($_GET['asl']))
-{
-    $silid = $_GET['asl'];
-    $query = "DELETE FROM `blogadmin` WHERE `id` = $silid";
+    $silid = $_GET['cgs'];
+    $query = "DELETE FROM `blogcategory` WHERE `id` = $silid";
     $result = $db->query($query);
  
     
 }
+ if(isset($_POST["c_ekle"])){
+                        
+                        $c_title = $_POST["c_title"];
+                        $c_desc = $_POST["c_desc"]; 
+						
+                        mysqli_query($db,"INSERT INTO blogcategory (Category_Title,Category_Desc)
+                        VALUES ('".$c_title."','".$c_desc."')");
+
+                    }
+
 ?>
 
 <!DOCTYPE html>
@@ -222,7 +157,7 @@ if(isset($_GET['asl']))
 						<li>
                             <a href="blogsettings.php"><i class="fa fa-wrench  fa-fw"></i> Blog Page Settings</a>
                             <ul class="nav nav-second-level">
-                               <li>
+                              <li>
                                     <a href="blog_yazi_ekle.php">Yazı Ekleme</a>
                                 </li>
                                 <li>
@@ -259,17 +194,39 @@ if(isset($_GET['asl']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Admin Add</h1>
-                        <form method="POST" action="" enctype="multipart/form-data">
-                        <input type="text" class="form-control" name="username" placeholder="Username"><br>
-                        <input type="text" class="form-control" name="password" placeholder="Password"><br>
-                        Profil resmi : <input type="file" name="dosya"><br>
-                        <button class="btn btn-default" type="submit" name="admin_ekle" type="button">Ekle</button>
-                        </form><br>
-                        <?php echo @$mesaj; ?>
+                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Blog Kategori Ekle & Sil</h1>
+						
+						<div class="col-lg-12">
+                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Category Add</h1>
+                        
                     </div>
-					
-					<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Admin Delete</h2>
+                    <form action="" method="POST" >
+                    <input type="text" class="form-control" name="c_title" placeholder="Title"><br>        
+                    <input type="text" class="form-control" name="c_desc" placeholder="Desc"><br>
+                    <button class="btn btn-default" type="submit" name="c_ekle" type="button">Ekle</button>
+                    </form>
+					<br>
+                    <?php
+                    if(isset($_POST["yazi_ekle"])){
+                        
+                        $title = $_POST["title"];
+                        $desc = $_POST["editor"];
+                        $article_PP = $_FILES['dosya']['name'];
+                        $category = $_POST["s_kategori"];
+                        $tags = $_POST["tags"];
+
+                        mysqli_query($db,"INSERT INTO blogyazilar (Article_Title,Article_Desc,Article_PP,Admin_id,Category_id,Tags,Post_View)
+                        VALUES ('".$title."','".$desc."','".$article_PP."','".$_SESSION["adminid"]."','".$kategori_id."','".$tags."',0)");
+
+
+
+
+                    }
+
+                     ?>
+                    </div>
+						
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Kategori Delete</h2>
                                 <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -277,24 +234,28 @@ if(isset($_GET['asl']))
                                      <thead>
                                         <tr>
                                             <th>#id</th>
-                                            <th>Admin Username</th>
+                                            <th>Category Title</th>
+											<th>Category Description</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                     <?php
-                    $sqladmin = "select * from blogadmin order by id DESC";
-                    $queryadmin = mysqli_query($db,$sqladmin);
-                    while( $rowadmin = mysqli_fetch_array( $queryadmin,MYSQLI_ASSOC ) ) {
-                        $admin_id = $rowadmin["id"];
-                        $admin_username = $rowadmin["Username"];
+                    $sqlcategory = "select * from blogcategory order by id DESC";
+                    $querycategory = mysqli_query($db,$sqlcategory);
+                    while( $rowcat = mysqli_fetch_array( $querycategory,MYSQLI_ASSOC ) ) {
+                        $category_id = $rowcat["id"];
+                        $category_title = $rowcat["Category_Title"];
+						$category_desc = $rowcat["Category_Desc"];
+						
 
                     ?>
                     
                                     <tbody>
                                         <tr>
-                                            <td><?php echo $admin_id ?></td>
-                                            <td><?php echo $admin_username ?></td>
-                                            <td><a href="?asl=<?php echo $admin_id ?>">Delete</a></td>
+                                            <td><?php echo $category_id ?></td>
+                                            <td><?php echo $category_title ?></td>
+											<td><?php echo $category_desc ?></td>
+                                            <td><a href="?cgs=<?php echo $category_id ?>">Delete</a></td>
                                         </tr>
                                     </tbody>
                                 
@@ -308,6 +269,8 @@ if(isset($_GET['asl']))
                             </div>
                             <!-- /.table-responsive -->
                         </div>
+                        
+                    </div>
                     
                     </div>
                     

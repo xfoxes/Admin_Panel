@@ -1,90 +1,17 @@
 <?php
 include "../../blog/connect_mysql.php";
 
-$uyari = "";
 
-
-
-
-function kontrol1($tur)
+if(isset($_GET['uss']))
 {
-    if($tur == "image/jpeg" || $tur == "image/jpg" || $tur == "image/png" || $tur == "image/gif" )
-    {
-        return true;        
-    }
-    else
-    {
-        return false;
-    }   
-}
-//------------------------------------------------------
-function kontrol2($boyut)
-{
-    if($boyut <=999999999999)
-    {
-        return true;
-        }
-    else
-    {
-        return false;
-    }
-}
-if(isset($_POST["admin_ekle"])){
-if(kontrol1($_FILES['dosya']['type']))
-  {
-      if(kontrol2($_FILES['dosya']['size']))
-      {
-         // Kontoller tamam
-         
-         copy($_FILES['dosya']['tmp_name'] , "../image/upload/" . $_FILES['dosya']['name']); 
-         
-         $resim = "../image/upload/" . $_FILES['dosya']['name'];
-         
-    
-        $uyari = "<div style='color:green; font-weight:bold;' class='alert alert-success'></div>"; 
-              
-          
-          }
-          else
-          {
-         $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim boyutu 2Mb'dan büyük olamaz!<br></div>"; 
-              }
-      
-      
-      
-  }
-  else
-  {
-     $uyari .= "<div style='color:red; font-weight:bold;' class='alert alert-danger'>*Resim dosyası seçilmeli!<br></div>"; 
-  }
-}
-
-
-if(isset($_POST["admin_ekle"])){
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $admin_PP = $_FILES['dosya']['name'];
-
-    
-mysqli_query($db,$sql="INSERT INTO blogadmin (Username,Password,Admin_PP)
-               VALUES ('".$username."','".$password."','".$admin_PP."')");
-
-if($sql){
-    $mesaj = "<div style='color:green; font-weight:bold;'>*Admin başarıyla Eklendi</div>";
-}else{
-    $mesaj="<div style='color:red; font-weight:bold;'>*Admin eklenirken bir hata meydana geldi</div>";
-}
-    
-}
-
-if(isset($_GET['asl']))
-{
-    $silid = $_GET['asl'];
-    $query = "DELETE FROM `blogadmin` WHERE `id` = $silid";
+    $silid = $_GET['uss'];
+    $query = "DELETE FROM `bloguyeler` WHERE `id` = $silid";
     $result = $db->query($query);
  
     
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -222,7 +149,7 @@ if(isset($_GET['asl']))
 						<li>
                             <a href="blogsettings.php"><i class="fa fa-wrench  fa-fw"></i> Blog Page Settings</a>
                             <ul class="nav nav-second-level">
-                               <li>
+                              <li>
                                     <a href="blog_yazi_ekle.php">Yazı Ekleme</a>
                                 </li>
                                 <li>
@@ -259,17 +186,9 @@ if(isset($_GET['asl']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Admin Add</h1>
-                        <form method="POST" action="" enctype="multipart/form-data">
-                        <input type="text" class="form-control" name="username" placeholder="Username"><br>
-                        <input type="text" class="form-control" name="password" placeholder="Password"><br>
-                        Profil resmi : <input type="file" name="dosya"><br>
-                        <button class="btn btn-default" type="submit" name="admin_ekle" type="button">Ekle</button>
-                        </form><br>
-                        <?php echo @$mesaj; ?>
-                    </div>
-					
-					<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Admin Delete</h2>
+                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Blog Üye işlemleri</h1>
+                        
+						<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">User Delete</h2>
                                 <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -277,24 +196,28 @@ if(isset($_GET['asl']))
                                      <thead>
                                         <tr>
                                             <th>#id</th>
-                                            <th>Admin Username</th>
+                                            <th>Username</th>
+											<th>Usermail</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                     <?php
-                    $sqladmin = "select * from blogadmin order by id DESC";
-                    $queryadmin = mysqli_query($db,$sqladmin);
-                    while( $rowadmin = mysqli_fetch_array( $queryadmin,MYSQLI_ASSOC ) ) {
-                        $admin_id = $rowadmin["id"];
-                        $admin_username = $rowadmin["Username"];
+                    $sqluser = "select * from bloguyeler order by id DESC";
+                    $queryuser = mysqli_query($db,$sqluser);
+                    while( $rowuser = mysqli_fetch_array( $queryuser,MYSQLI_ASSOC ) ) {
+                        $user_id = $rowuser["id"];
+                        $user_name = $rowuser["Username"];
+						$user_mail = $rowuser["Email"];
+						
 
                     ?>
                     
                                     <tbody>
                                         <tr>
-                                            <td><?php echo $admin_id ?></td>
-                                            <td><?php echo $admin_username ?></td>
-                                            <td><a href="?asl=<?php echo $admin_id ?>">Delete</a></td>
+                                            <td><?php echo $user_id ?></td>
+                                            <td><?php echo $user_name ?></td>
+											<td><?php echo $user_mail ?></td>
+                                            <td><a href="?uss=<?php echo $user_id ?>">Delete</a></td>
                                         </tr>
                                     </tbody>
                                 
@@ -308,6 +231,8 @@ if(isset($_GET['asl']))
                             </div>
                             <!-- /.table-responsive -->
                         </div>
+						
+                    </div>
                     
                     </div>
                     

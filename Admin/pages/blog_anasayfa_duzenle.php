@@ -29,7 +29,7 @@ function kontrol2($boyut)
         return false;
     }
 }
-if(isset($_POST["admin_ekle"])){
+if(isset($_POST["blog_guncelle"])){
 if(kontrol1($_FILES['dosya']['type']))
   {
       if(kontrol2($_FILES['dosya']['size']))
@@ -59,31 +59,47 @@ if(kontrol1($_FILES['dosya']['type']))
   }
 }
 
+$sqlblog = "select * from blogpage";
+                    $queryblog = mysqli_query($db,$sqlblog);
+                    while( $rowblog = mysqli_fetch_array( $queryblog,MYSQLI_ASSOC ) ) {
+                        $blog_PP = $rowblog["Main_PP"];
+                        $blog_site_title = $rowblog["Site_Title"];
+                        $blog_site_desc = $rowblog["Site_Desc"];
+                        $blog_button_title = $rowblog["Button_Title"];
+                        $blog_button_link = $rowblog["Button_Link"];
+                        $blog_twitter = $rowblog["Twitter"];
+                        $blog_facebook = $rowblog["Facebook"];
+                        $blog_instagram = $rowblog["Instagram"];
 
-if(isset($_POST["admin_ekle"])){
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $admin_PP = $_FILES['dosya']['name'];
+                    }
 
-    
-mysqli_query($db,$sql="INSERT INTO blogadmin (Username,Password,Admin_PP)
-               VALUES ('".$username."','".$password."','".$admin_PP."')");
 
-if($sql){
-    $mesaj = "<div style='color:green; font-weight:bold;'>*Admin başarıyla Eklendi</div>";
-}else{
-    $mesaj="<div style='color:red; font-weight:bold;'>*Admin eklenirken bir hata meydana geldi</div>";
-}
-    
-}
+if(isset($_POST["blog_guncelle"])){
+    if($_FILES['dosya']['name'] != null)
+                                    {
+                                        $blog_resim = $_FILES['dosya']['name'];
+                                    }
+                                    else
+                                    {
+                                        $blog_resim = $blog_PP;
+                                    }
+    $blog_baslik = $_POST["title"];
+    $blog_aciklama = $_POST["desc"];
+    $blog_hakkimda = $_POST["editor"];
+    $blog_button_baslik = $_POST["button_title"];
+    $blog_button_ling = $_POST["button_link"];
+    $blog_tiwitter = $_POST["twitter"];
+    $blog_feysbook = $_POST["facebook"];
+    $blog_instegram = $_POST["instagram"];
 
-if(isset($_GET['asl']))
-{
-    $silid = $_GET['asl'];
-    $query = "DELETE FROM `blogadmin` WHERE `id` = $silid";
-    $result = $db->query($query);
- 
-    
+    $sql_g = "UPDATE blogpage SET Main_PP='$blog_resim', Site_Title='$blog_baslik', Site_Desc='$blog_aciklama', About_Desc='$blog_hakkimda',Button_Title='$blog_button_baslik',Button_Link='$blog_button_ling',Twitter='$blog_tiwitter',Facebook='$blog_feysbook',Instagram='$blog_instegram' WHERE id=1";
+
+                                    if (mysqli_query($db, $sql_g)) {
+                                     $mesaj= "<div style='color:green; font-weight:bold;'>*Seçilen yazı başarıyla güncelledi.</div>";
+                                    } else {
+                                     $mesaj= "<div style='color:red; font-weight:bold;'>*Seçilen yazı güncellenirken bir hata meydana geldi.</div>".mysqli_error($db);
+                                    }
+
 }
 ?>
 
@@ -222,18 +238,15 @@ if(isset($_GET['asl']))
 						<li>
                             <a href="blogsettings.php"><i class="fa fa-wrench  fa-fw"></i> Blog Page Settings</a>
                             <ul class="nav nav-second-level">
-                               <li>
-                                    <a href="blog_yazi_ekle.php">Yazı Ekleme</a>
+                                <li>
+                                    <a href="blogsettings.php">Yazı Ekleme</a>
                                 </li>
                                 <li>
-                                    <a href="blog_yazi_duzenle.php">Yazı Düzenleme ve Silme</a>
+                                    <a href="#">Yazı Düzenleme ve Silme</a>
                                 </li>
 								<li>
-                                    <a href="blog_admin_ekle.php">Admin ekle</a>
+                                    <a href="#">Admin ekle</a>
                                 </li>
-								<li>
-								<a href ="#" >Kategori Ekle Sil </a>
-								</li>
 								<li>
                                     <a href="#">Üye Silme</a>
                                 </li>
@@ -259,57 +272,42 @@ if(isset($_GET['asl']))
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Admin Add</h1>
-                        <form method="POST" action="" enctype="multipart/form-data">
-                        <input type="text" class="form-control" name="username" placeholder="Username"><br>
-                        <input type="text" class="form-control" name="password" placeholder="Password"><br>
-                        Profil resmi : <input type="file" name="dosya"><br>
-                        <button class="btn btn-default" type="submit" name="admin_ekle" type="button">Ekle</button>
-                        </form><br>
-                        <?php echo @$mesaj; ?>
-                    </div>
-					
-					<h2 style="color:#bb0a1e; font-weight:bold;" class="page-header">Admin Delete</h2>
-                                <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                     <thead>
-                                        <tr>
-                                            <th>#id</th>
-                                            <th>Admin Username</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                    <?php
-                    $sqladmin = "select * from blogadmin order by id DESC";
-                    $queryadmin = mysqli_query($db,$sqladmin);
-                    while( $rowadmin = mysqli_fetch_array( $queryadmin,MYSQLI_ASSOC ) ) {
-                        $admin_id = $rowadmin["id"];
-                        $admin_username = $rowadmin["Username"];
 
-                    ?>
-                    
-                                    <tbody>
-                                        <tr>
-                                            <td><?php echo $admin_id ?></td>
-                                            <td><?php echo $admin_username ?></td>
-                                            <td><a href="?asl=<?php echo $admin_id ?>">Delete</a></td>
-                                        </tr>
-                                    </tbody>
-                                
-                    <?php
-                    }
-                    ?>
-                                    <tbody>   
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                    
+                        <h1 style="color:#327ab7; font-weight:bold;" class="page-header">Blog Anasayfa Düzenle</h1>
+                        
                     </div>
+                   <form method="POST" action="" enctype="multipart/form-data">
+                    <div class="col-lg-12">
+                        <h3 style="color:#327ab7; font-weight:bold;" class="page-header">Profil Pictures Settings</h3>
+                        
+                    </div>
+                    Profil resmi : <input type="file" id="dosya" name="dosya"><br>
+                    <div class="col-lg-12">
+                        <h3 style="color:#327ab7; font-weight:bold;" class="page-header">About Me Settings</h3>
+                        
+                    </div>
+                    
+                    <input type="text" class="form-control" value="<?php echo $blog_site_title;  ?>" name="title" placeholder="Title"><br>
+                    <input type="text" class="form-control" value="<?php echo $blog_site_desc;  ?>"  name="desc" placeholder="Desc"><br>
+                    <textarea class="ckeditor" id="editor" name="editor"><?php echo $blog_site_desc ?></textarea><br>
+                    <div class="col-lg-12">
+                        <h3 style="color:#327ab7; font-weight:bold;" class="page-header">Button Settings</h3>
+                        
+                    </div>
+                    <input type="text" class="form-control" value="<?php echo $blog_button_title;  ?>" name="button_title" placeholder="Button Title"><br>
+                    <input type="text" class="form-control" value="<?php echo $blog_button_link;  ?>" name="button_link" placeholder="Button Link"><br>
+                    <div class="col-lg-12">
+                        <h3 style="color:#327ab7; font-weight:bold;" class="page-header">Social Media</h3>
+                        
+                    </div>
+                    <input type="text" class="form-control" value="<?php echo $blog_twitter;  ?>" name="twitter" placeholder="Twitter"><br>
+                    <input type="text" class="form-control" value="<?php echo $blog_facebook;  ?>" name="facebook" placeholder="Facebook"><br>
+                    <input type="text" class="form-control" value="<?php echo $blog_instagram;  ?>" name="instagram" placeholder="Instagram"><br>
+                    <button class="btn btn-default" name="blog_guncelle" type="submit">Update</button><br><br><br>
+                    <?php echo @$mesaj; ?>
+                    </form>
+                    </div>
+                    
                     
                     <!-- /.col-lg-12 -->
                 </div>

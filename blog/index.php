@@ -17,6 +17,21 @@ if(isset($_POST['cikisyap']))
 }
 
 
+$sqlblog = "select * from blogpage where id=1";
+                    $queryblog = mysqli_query($db,$sqlblog);
+                    while( $rowblog = mysqli_fetch_array( $queryblog,MYSQLI_ASSOC ) ) {
+                        $blog_PP = $rowblog["Main_PP"];
+                        $blog_site_title = $rowblog["Site_Title"];
+                        $blog_site_desc = $rowblog["Site_Desc"];
+                        $blog_button_title = $rowblog["Button_Title"];
+                        $blog_button_link = $rowblog["Button_Link"];
+                        $blog_twitter = $rowblog["Twitter"];
+                        $blog_facebook = $rowblog["Facebook"];
+                        $blog_instagram = $rowblog["Instagram"];
+
+                    }
+
+
  ?>
 <!DOCTYPE HTML>
 <!--
@@ -41,7 +56,7 @@ if(isset($_POST['cikisyap']))
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.php">Onat Aktaş</a></h1>
+						<h1><a href="index.php"><?php echo $blog_site_title ?></a></h1>
 						<nav class="links">
 							<ul>
 								<li><a href="index.php">Anasayfa</a></li>
@@ -248,10 +263,10 @@ if(isset($_POST['cikisyap']))
 
 						<!-- Intro -->
 							<section id="intro">
-								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
+								<a href="#" class="logo"><img src="../Admin/image/upload/<?php echo $blog_PP; ?>" alt="" /></a>
 								<header>
-									<h2>Onat Aktaş Blog</h2>
-									<p>Yazılım ve daha fazlası ...</p>
+									<h2><?php echo $blog_site_title; ?></h2>
+									<p><?php echo $blog_site_desc; ?></p>
 								</header>
 							</section>
 
@@ -307,18 +322,18 @@ if(isset($_POST['cikisyap']))
 						<!-- About -->
 							<section class="blurb">
 								<h2>Hakkımda</h2>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+								<p><?php echo $blog_site_desc; ?></p>
 								<ul class="actions">
-									<li><a href="#" class="button">Kişisel Sitem</a></li>
+									<li><a href="<?php echo $blog_button_link; ?>" class="button"><?php echo $blog_button_title; ?></a></li>
 								</ul>
 							</section>
 
 						<!-- Footer -->
 							<section id="footer">
 								<ul class="icons">
-									<li><a href="#" class="fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="fa-facebook"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="<?php echo $blog_twitter; ?>" class="fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="<?php echo $blog_facebook; ?>" class="fa-facebook"><span class="label">Facebook</span></a></li>
+									<li><a href="<?php echo $blog_instagram; ?>" class="fa-instagram"><span class="label">Instagram</span></a></li>
 									<li><a href="#" class="fa-rss"><span class="label">RSS</span></a></li>
 									<li><a href="#" class="fa-envelope"><span class="label">Email</span></a></li>
 								</ul>
