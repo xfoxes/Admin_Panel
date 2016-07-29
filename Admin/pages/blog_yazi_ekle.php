@@ -1,6 +1,17 @@
 <?php
 include "../../blog/connect_mysql.php";
 session_start();
+if(@$_SESSION["LoginAdmin"] != null )
+{
+
+
+}
+else{
+		
+		echo "<script language='javascript'>
+    window.location.href ='login.php'
+</script>";
+	}
 
 $uyari = "";
 

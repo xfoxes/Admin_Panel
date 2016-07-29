@@ -2,6 +2,7 @@
 
 <?php
 include "Admin/pages/connect.php";
+session_start();
 $ensonsayi = 0;
 
  $query = $db->query("select * from ziyaretciler", PDO::FETCH_ASSOC);
@@ -13,7 +14,7 @@ $ensonsayi = 0;
                           }
 						  
 
-session_start();
+
 
 if(!isset($_SESSİON['hasVisited']))
 {

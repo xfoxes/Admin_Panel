@@ -121,7 +121,7 @@ else
         <meta charset="utf-8">
 		<!-- Always force latest IE rendering engine or request Chrome Frame -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Onat Aktaş</title>		
+        <title>Onat Aktaş | Me</title>		
 		<!-- Meta Description -->
         <meta name="description" content="Merhaba benim adım Onat Aktaş, Burada benim hakkımda daha çok bilgiye kolayça ulaşabilir ve kişisel blog, yaptığım projeler ve verdiğim hizmetlere göz atabilirsiniz.">
         <meta name="title" content="Onat Aktaş Kişisel Sitesi" />
